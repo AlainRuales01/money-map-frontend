@@ -1,15 +1,32 @@
+import { useEffect, useState } from 'react';
+import Table from '../../../components/common/Table';
+import type { DropdownOptionDTO } from '../../../types/services/common/DropdownOptionDTO';
+import { categoryTypeService } from '../services/categoryTypeService';
+
 const CategoryTypesPage = () => {
+  const [categoryTypes, setCategoryTypes] = useState<DropdownOptionDTO[]>([]);
+
+  const columns = [
+    { key: 'id', label: 'Id' },
+    { key: 'name', label: 'Name' }
+  ];
+
+  useEffect(() => {
+    // Fetch category types from an API or service
+    const fetchCategoryTypes = async () => {
+      const data = await categoryTypeService.getCategoryTypeDropDownOptions();
+      setCategoryTypes(data);
+    }
+
+    fetchCategoryTypes();
+  }, []);
+
   return (
     <div>
-      <h1>Category Types</h1>
-      <p>This is the Category Types page.</p>
-      <h2>Next Steps</h2>
-      <p>Here are some next steps you can take:</p>
-      <ul>
-        <li>Create a new category type</li>
-        <li>Edit an existing category type</li>
-        <li>Delete a category type</li>
-      </ul>
+      <Table
+        columns={columns}
+        data={categoryTypes}
+      />
     </div>
   );
 };
