@@ -24,11 +24,11 @@ const Table = <T extends object>({
             <thead>
                 <tr>
                     {columns.map(col => (
-                        <th key={String(col.key)} className="px-4 py-2 text-left border bg-gray-50">
+                        <th key={String(col.key)} className="px-4 py-2 text-left border bg-black">
                             {col.label}
                         </th>
                     ))}
-                    {actionComponent && <th className="px-4 py-2 text-left border bg-gray-50">Acciones</th>}
+                    {actionComponent && <th className="px-4 py-2 text-left border bg-black"></th>}
                 </tr>
             </thead>
             <tbody>
