@@ -7,7 +7,6 @@ const CategoryTypesPage = () => {
   const [categoryTypes, setCategoryTypes] = useState<DropdownOptionDTO[]>([]);
 
   const columns = [
-    { key: 'id', label: 'Id' },
     { key: 'name', label: 'Name' }
   ];
 
