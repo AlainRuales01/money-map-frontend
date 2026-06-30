@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import Table from '../../../components/common/Table';
-import type { DropdownOptionDTO } from '../../../types/services/common/DropdownOptionDTO';
-import { categoryTypeService } from '../services/categoryService';
+import { categoryService } from '../services/categoryService';
+import type { GetCategoryBasicInfoDTO } from '../../../types/services/category/response/GetCategoryBasicInfoDTO';
 
 const CategoryTable = () => {
-    const [categories, setCategories] = useState<DropdownOptionDTO[]>([]);
+    const [categories, setCategories] = useState<GetCategoryBasicInfoDTO[]>([]);
 
   const columns = [
-    { key: 'name', label: 'Name' }
+    { key: 'name', label: 'Name' },
+    { key: 'description', label: 'Description' },
+    { key: 'categoryTypeId', label: 'Category Type ID' },
   ];
 
   useEffect(() => {
     const fetchCategory = async () => {
-      const data = await categoryTypeService.getCategoryTypeDropDownOptions();
+      const data = await categoryService.getCategoryBasicInfo();
       setCategories(data);
     }
 
