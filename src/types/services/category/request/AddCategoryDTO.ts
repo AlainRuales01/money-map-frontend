@@ -1,3 +1,5 @@
 import type { AddCatalogObjectDTO } from "../../common/AddCatalogObjectDTO";
 
-export type AddCategoryDTO = AddCatalogObjectDTO;
+export interface AddCategoryDTO extends AddCatalogObjectDTO {
+    categoryTypeId: string;
+}
