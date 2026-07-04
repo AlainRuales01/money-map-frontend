@@ -10,7 +10,7 @@ const AddCategoryButton = () => {
         <>
             <button onClick={() => setShowModal(true)} className="bg-blue-500 text-white px-2 py-1 rounded">Add Category</button>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-                <AddCategoryModal />
+                <AddCategoryModal onClose={() => setShowModal(false)} />
             </Modal>
         </>
     );

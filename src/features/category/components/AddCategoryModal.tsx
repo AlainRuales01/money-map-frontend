@@ -4,7 +4,7 @@ import { categoryService } from '@featuresCategory/services/categoryService';
 
 import { useEffect, useState } from "react";
 
-const AddCategoryModal = () => {
+const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [categoryTypes, setCategoryTypes] = useState<DropdownOptionDTO[]>([]);
@@ -18,20 +18,33 @@ const AddCategoryModal = () => {
     initialData();
   }, []);
 
-  const handleAdd = async () => {
+  const handleAdd = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!validateInputs()) {
+      return;
+    }
     await categoryService.addCategory({
       name: name,
       description: description,
       categoryTypeId: categoryTypeId,
     });
+
+    onClose()
+  };
+
+  const validateInputs = () : boolean => {
+    if (!name || !description || !categoryTypeId) {
+      throw new Error("All fields are required");
+    }
+    return true;
   };
 
   return (
-    <form>
-      <div>
+    <form onSubmit={(e) => handleAdd(e)}>
+      <div className="flex flex-col gap-2 p-4">
         <h1 className="text-black">Add Category</h1>
         <div>
-          <label className="text-black">Name</label>
+          <label className="text-black pr-2">Name</label>
           <input
             type="text"
             value={name}
@@ -42,7 +55,7 @@ const AddCategoryModal = () => {
         </div>
 
         <div>
-          <label className="text-black">Description</label>
+          <label className="text-black pr-2">Description</label>
           <input
             type="text"
             value={description}
@@ -52,7 +65,7 @@ const AddCategoryModal = () => {
           />
         </div>
         <div>
-          <label className="text-black">Category Type</label>
+          <label className="text-black pr-2">Category Type</label>
           <select
             className="border border-gray-300 p-1 rounded mb-2 text-black"
             onChange={(e) => setCategoryTypeId(e.target.value)}
@@ -72,7 +85,7 @@ const AddCategoryModal = () => {
           </select>
         </div>
         <button
-          onClick={() => handleAdd()}
+          type="submit"
           className="bg-blue-500 text-white px-2 py-1 rounded"
         >
           Agregar
