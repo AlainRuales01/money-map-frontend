@@ -1,3 +1,3 @@
-import type { AddCatalogObjectDTO } from "../../common/AddCatalogObjectDTO";
+import type { AddCatalogObjectDTO } from '@/types/services/common/AddCatalogObjectDTO';
 
 export type AddCategoryTypeDTO = AddCatalogObjectDTO;

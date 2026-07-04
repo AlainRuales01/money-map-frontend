@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import Table from '../../../components/common/Table';
-import { categoryService } from '../services/categoryService';
-import type { GetCategoryBasicInfoDTO } from '../../../types/services/category/response/GetCategoryBasicInfoDTO';
+import Table from '@/components/common/Table';
+import { categoryService } from '@featuresCategory/services/categoryService';
+import type { GetCategoryBasicInfoDTO } from '@/types/services/category/response/GetCategoryBasicInfoDTO';
 
 const CategoryTable = () => {
     const [categories, setCategories] = useState<GetCategoryBasicInfoDTO[]>([]);

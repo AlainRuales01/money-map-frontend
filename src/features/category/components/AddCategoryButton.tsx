@@ -1,4 +1,4 @@
-import Modal from "../../../components/common/Modal";
+import Modal from '@/components/common/Modal';
 
 import { useState } from "react";
 import AddCategoryModal from "./AddCategoryModal";

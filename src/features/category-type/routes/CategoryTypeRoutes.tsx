@@ -1,5 +1,5 @@
 import {Routes, Route } from "react-router";
-import CategoryTypesPage from "../pages/CategoryTypesPage";
+import CategoryTypesPage from "@featuresCategoryType/pages/CategoryTypesPage";
 const CategoryTypeRoutes = () => {
   return (
         <Routes>

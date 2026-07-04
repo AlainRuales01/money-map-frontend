@@ -1,5 +1,5 @@
-import AddCategoryButton from "../components/AddCategoryButton"
-import CategoryTable from "../components/CategoryTable"
+import AddCategoryButton from '@featuresCategory/components/AddCategoryButton'
+import CategoryTable from '@featuresCategory/components/CategoryTable'
 
 const CategoriesPage = () => {
     return (

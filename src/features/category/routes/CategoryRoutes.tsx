@@ -1,5 +1,5 @@
 import {Routes, Route } from "react-router";
-import CategoriesPage from "../pages/CategoriesPage";
+import CategoriesPage from "@featuresCategory/pages/CategoriesPage";
 const CategoryRoutes = () => {
   return (
         <Routes>

@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"],
+      "@features/*": ["./src/features/*"],
+      "@featuresCategoryType/*": ["./src/features/category-type/*"],
+      "@featuresCategory/*": ["./src/features/category/*"]
+    },
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "es2023",
     "lib": ["ES2023", "DOM"],

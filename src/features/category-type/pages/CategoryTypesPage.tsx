@@ -1,4 +1,4 @@
-import CategoryTypeTable from "../components/CategoryTypeTable";
+import CategoryTypeTable from '@featuresCategoryType/components/CategoryTypeTable';
 
 const CategoryTypesPage = () => {
   return (

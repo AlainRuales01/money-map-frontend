@@ -1,6 +1,6 @@
-import type { DropdownOptionDTO } from '../../../types/services/common/DropdownOptionDTO';
-import { categoryTypeService } from '../../category-type/services/categoryTypeService';
-import { categoryService } from '../services/categoryService';
+import type { DropdownOptionDTO } from '@/types/services/common/DropdownOptionDTO';
+import { categoryTypeService } from '@featuresCategoryType/services/categoryTypeService';
+import { categoryService } from '@featuresCategory/services/categoryService';
 
 import { useEffect, useState } from "react";
 

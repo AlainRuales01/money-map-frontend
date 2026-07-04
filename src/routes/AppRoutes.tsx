@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router";
-import CategoryTypeRoutes from "../features/category-type/routes/CategoryTypeRoutes";
-import LandingPage from "../features/landing/pages/LandingPage";
-import CategoryRoutes from "../features/category/routes/CategoryRoutes";
+import CategoryTypeRoutes from "@featuresCategoryType/routes/CategoryTypeRoutes";
+import LandingPage from "@features/landing/pages/LandingPage";
+import CategoryRoutes from "@featuresCategory/routes/CategoryRoutes";
 
 const AppRoutes = () => {
     return (
