@@ -1,6 +1,7 @@
 import type { DropdownOptionDTO } from '@/types/services/common/DropdownOptionDTO';
 import { categoryTypeService } from '@featuresCategoryType/services/categoryTypeService';
 import { categoryService } from '@featuresCategory/services/categoryService';
+import { useAlert } from '@/components/context/AlertContext';
 
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,7 @@ const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
   const [description, setDescription] = useState("");
   const [categoryTypes, setCategoryTypes] = useState<DropdownOptionDTO[]>([]);
   const [categoryTypeId, setCategoryTypeId] = useState("");
+  const { showAlert } = useAlert();
 
   useEffect(() => {
     const initialData = async () => {
@@ -21,6 +23,7 @@ const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
   const handleAdd = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateInputs()) {
+      showAlert("All fields are required", "error");
       return;
     }
     await categoryService.addCategory({
@@ -34,7 +37,7 @@ const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
 
   const validateInputs = () : boolean => {
     if (!name || !description || !categoryTypeId) {
-      throw new Error("All fields are required");
+      return false;
     }
     return true;
   };
