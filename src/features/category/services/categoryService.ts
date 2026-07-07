@@ -13,13 +13,12 @@ export const categoryService = {
 
   async getCategoryTypeDropDownOptions(): Promise<DropdownOptionDTO[]> {
     const endPoint = `${BASE_URL}/GetCategoryDropDownOptions`;
-    const response = await moneyMapClient.get(endPoint);
-    return response.data.data;
+    return await moneyMapClient.get(endPoint);
+    
   },
 
   async getCategoryBasicInfo(): Promise<GetCategoryBasicInfoDTO[]> {
     const endPoint = `${BASE_URL}/GetCategoriesBasicInfo`;
-    const response = await moneyMapClient.get(endPoint);
-    return response.data.data;
+    return await moneyMapClient.get(endPoint);  
   }
 }
