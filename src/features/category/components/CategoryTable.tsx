@@ -1,30 +1,22 @@
-import { useEffect, useState } from 'react';
 import Table from '@/components/common/Table';
-import { categoryService } from '@featuresCategory/services/categoryService';
 import type { GetCategoryBasicInfoDTO } from '@/types/services/category/response/GetCategoryBasicInfoDTO';
 
-const CategoryTable = () => {
-    const [categories, setCategories] = useState<GetCategoryBasicInfoDTO[]>([]);
 
-  const columns = [
+export interface CategoryTableProps {
+  categories: GetCategoryBasicInfoDTO[];
+}
+
+const COLUMNS = [
     { key: 'name', label: 'Name' },
     { key: 'description', label: 'Description' },
     { key: 'categoryTypeId', label: 'Category Type ID' },
-  ];
+];
 
-  useEffect(() => {
-    const fetchCategory = async () => {
-      const data = await categoryService.getCategoryBasicInfo();
-      setCategories(data);
-    }
-
-    fetchCategory();
-  }, []);
-
+const CategoryTable = ({ categories }: CategoryTableProps) => {
   return (
     <div>
       <Table
-        columns={columns}
+        columns={COLUMNS}
         data={categories}
       />
     </div>
