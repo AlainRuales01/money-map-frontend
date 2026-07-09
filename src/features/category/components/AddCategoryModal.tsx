@@ -4,6 +4,7 @@ import { categoryService } from '@featuresCategory/services/categoryService';
 import { useAlert } from '@/components/context/AlertContext';
 
 import { useEffect, useState } from "react";
+import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 
 const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
   const [name, setName] = useState("");
@@ -14,16 +15,21 @@ const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
 
   useEffect(() => {
     const initialData = async () => {
-      const result = await categoryTypeService.getCategoryTypeDropDownOptions();
-      setCategoryTypes(result);
+      try {
+        const result = await categoryTypeService.getCategoryTypeDropDownOptions();
+        setCategoryTypes(result);
+      } catch (error : unknown) {
+        const errorMessage = getApiResponseMessageError(error);
+        showAlert(errorMessage, "error");
+      }
     };
     initialData();
-  }, []);
+  }, [showAlert]);
 
   const handleAdd = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validateInputs()) {
-      showAlert("All fields are required", "error");
+      showAlert("All fields are required", "info");
       return;
     }
     await categoryService.addCategory({
