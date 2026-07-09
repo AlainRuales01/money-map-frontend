@@ -32,11 +32,16 @@ const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
       showAlert("All fields are required", "info");
       return;
     }
-    await categoryService.addCategory({
-      name: name,
-      description: description,
-      categoryTypeId: categoryTypeId,
-    });
+    try {
+      await categoryService.addCategory({
+        name: name,
+        description: description,
+        categoryTypeId: categoryTypeId,
+      });
+    } catch (error : unknown) {
+      const errorMessage = getApiResponseMessageError(error);
+      showAlert(errorMessage, "error");
+    }
 
     onClose()
   };
