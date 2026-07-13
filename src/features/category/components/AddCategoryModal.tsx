@@ -1,30 +1,30 @@
-import type { DropdownOptionDTO } from '@/types/services/common/DropdownOptionDTO';
-import { categoryTypeService } from '@featuresCategoryType/services/categoryTypeService';
-import { categoryService } from '@featuresCategory/services/categoryService';
 import { useAlert } from '@/components/context/AlertContext';
 
 import { useEffect, useState } from "react";
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
+import { useAddCategoryMutation } from '../hooks/useCategoryHooks';
+import { useCategoryTypesDropDownOptionsQuery } from '@/features/category-type/hooks/useCategoryTypeHooks';
 
-const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
+interface AddCategoryModalProps {
+    onClose: () => void;
+}
+
+const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [categoryTypes, setCategoryTypes] = useState<DropdownOptionDTO[]>([]);
   const [categoryTypeId, setCategoryTypeId] = useState("");
   const { showAlert } = useAlert();
 
+  const { data: categoryTypes = [], isLoading, isError, error } = useCategoryTypesDropDownOptionsQuery();
+
   useEffect(() => {
-    const initialData = async () => {
-      try {
-        const result = await categoryTypeService.getCategoryTypeDropDownOptions();
-        setCategoryTypes(result);
-      } catch (error : unknown) {
-        const errorMessage = getApiResponseMessageError(error);
-        showAlert(errorMessage, "error");
-      }
-    };
-    initialData();
-  }, [showAlert]);
+    if (isError) {
+      const errorMessage = getApiResponseMessageError(error);
+      showAlert(errorMessage, "error");
+    }
+  }, [isError, error, showAlert]);
+
+  const { mutate, isPending } = useAddCategoryMutation();
 
   const handleAdd = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,18 +32,17 @@ const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
       showAlert("All fields are required", "info");
       return;
     }
-    try {
-      await categoryService.addCategory({
-        name: name,
-        description: description,
-        categoryTypeId: categoryTypeId,
-      });
-    } catch (error : unknown) {
-      const errorMessage = getApiResponseMessageError(error);
-      showAlert(errorMessage, "error");
-    }
 
-    onClose()
+    mutate({
+      name: name,
+      description: description,
+      categoryTypeId: categoryTypeId
+    }, 
+    {
+      onSuccess: () => {
+        onClose();
+      }
+    });
   };
 
   const validateInputs = () : boolean => {
@@ -54,7 +53,7 @@ const AddCategoryModal = ({onClose}: { onClose: () => void }) => {
   };
 
   return (
-    <form onSubmit={(e) => handleAdd(e)}>
+    <form onSubmit={handleAdd}>
       <div className="flex flex-col gap-2 p-4">
         <h1 className="text-black">Add Category</h1>
         <div>
