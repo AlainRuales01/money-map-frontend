@@ -4,6 +4,8 @@ import './App.css'
 import { AlertProvider } from './components/context/AlertProvider'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import GlobalSyncIndicator from './components/ui/GlobalSyncIndicator'
+import GlobalLoadingIndicator from './components/ui/GlobalLoadingIndicator'
 
 
 const queryClient = new QueryClient({
@@ -23,6 +25,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AlertProvider>
+          <GlobalLoadingIndicator />
+          <GlobalSyncIndicator />
           <AppRoutes />
         </AlertProvider>
       </BrowserRouter>
