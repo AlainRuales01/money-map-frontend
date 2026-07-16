@@ -1,16 +1,16 @@
-import AddCategoryButton from '@featuresCategory/components/AddCategoryButton'
 import CategoryTable from '@featuresCategory/components/CategoryTable'
 import { useEffect } from 'react'
 
 import { useAlert } from '@/components/context/AlertContext';
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import { useCategoriesBasicInfoQuery } from '../hooks/useCategoryHooks';
+import ToolbarCategory from '../components/ToolbarCategory';
 
 const CategoriesPage = () => {
 
     const { showAlert } = useAlert();
 
-    const { data: categories = [], isLoading, isError, error } = useCategoriesBasicInfoQuery();
+    const { data: categories = [], isError, error } = useCategoriesBasicInfoQuery();
 
     useEffect(() => {
         if (isError) {
@@ -21,7 +21,7 @@ const CategoriesPage = () => {
 
     return (
         <div>
-            <AddCategoryButton />
+            <ToolbarCategory />
             <main>
                 <CategoryTable categories={categories} />
             </main>

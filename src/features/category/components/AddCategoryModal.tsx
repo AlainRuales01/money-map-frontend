@@ -15,7 +15,7 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
   const [categoryTypeId, setCategoryTypeId] = useState("");
   const { showAlert } = useAlert();
 
-  const { data: categoryTypes = [], isLoading, isError, error } = useCategoryTypesDropDownOptionsQuery();
+  const { data: categoryTypes = [], isError, error } = useCategoryTypesDropDownOptionsQuery();
 
   useEffect(() => {
     if (isError) {
@@ -24,7 +24,7 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
     }
   }, [isError, error, showAlert]);
 
-  const { mutate, isPending } = useAddCategoryMutation();
+  const { mutate } = useAddCategoryMutation();
 
   const handleAdd = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
