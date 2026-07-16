@@ -8,7 +8,7 @@ const AddCategoryButton = () => {
     
     return (
         <div className="flex justify-end items-center p-2">
-            <button type="button" onClick={() => setShowModal(true)} className="bg-blue-500 text-white px-2 py-1 rounded">Add Category</button>
+            <button type="button" onClick={() => setShowModal(true)} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Category</button>
             <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
                 <AddCategoryModal onClose={() => setShowModal(false)} />
             </Modal>
