@@ -19,10 +19,14 @@ const CategoriesPage = () => {
         }
     }, [isError, error, showAlert]);
 
+    const handleSearch = (categoryName: string, categoryTypeId: string) => {
+        console.log("Searching for categories with name:", categoryName, "and type ID:", categoryTypeId);
+    }
+
     return (
         <div>
             <h1 className="text-2xl font-bold mb-4">Categories</h1>
-            <ToolbarCategory />
+            <ToolbarCategory onSearch={handleSearch} />
             <main>
                 <CategoryTable categories={categories} />
             </main>
