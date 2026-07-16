@@ -3,13 +3,14 @@ import { categoryService } from '@featuresCategory/services/categoryService';
 import type { AddCategoryDTO } from '@/types/services/category/request/AddCategoryDTO';
 import { useAlert } from '@/components/context/AlertContext';
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
+import type { GetCategoryBasicInfoRequestDTO } from '@/types/services/category';
 
 const CATEGORIES_KEY = 'categories' as const;
 
-export const useCategoriesBasicInfoQuery = () => {
+export const useCategoriesBasicInfoQuery = ({ categoryName, categoryTypeId }: GetCategoryBasicInfoRequestDTO) => {
     return useQuery({
         queryKey: [CATEGORIES_KEY, 'basicInfo'],
-        queryFn: () => categoryService.getCategoryBasicInfo()
+        queryFn: () => categoryService.getCategoryBasicInfo({ categoryName, categoryTypeId })
     });
 }
 

@@ -8,8 +8,8 @@ interface FilterCategoriesProps {
 }
 
 const FilterCategories = ({onSearch}: FilterCategoriesProps) => {
-    const [categoryName, setCategoryName] = useState("");
-    const [categoryTypeId, setCategoryTypeId] = useState("");
+    const [categoryName, setCategoryName] = useState('');
+    const [categoryTypeId, setCategoryTypeId] = useState('');
 
     const { showAlert } = useAlert();
     const { data: categoryTypes = [], isError, error } = useCategoryTypesDropDownOptionsQuery();

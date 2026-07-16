@@ -1,6 +1,5 @@
 import { moneyMapClient } from "@/services/api/clients/moneyMapClient";
-import type { AddCategoryDTO } from "@/types/services/category/request/AddCategoryDTO";
-import type { GetCategoryBasicInfoDTO } from "@/types/services/category/response/GetCategoryBasicInfoDTO";
+import type { AddCategoryDTO, GetCategoryBasicInfoRequestDTO, GetCategoryBasicInfoResponseDTO } from "@/types/services/category";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
 
 const BASE_URL = '/Category';
@@ -17,8 +16,8 @@ export const categoryService = {
     
   },
 
-  async getCategoryBasicInfo(): Promise<GetCategoryBasicInfoDTO[]> {
+  async getCategoryBasicInfo(request: GetCategoryBasicInfoRequestDTO): Promise<GetCategoryBasicInfoResponseDTO[]> {
     const endPoint = `${BASE_URL}/GetCategoriesBasicInfo`;
-    return await moneyMapClient.get(endPoint);  
+    return await moneyMapClient.get(endPoint, { params: request });  
   }
 }

@@ -1,5 +1,5 @@
 import CategoryTable from '@featuresCategory/components/CategoryTable'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useAlert } from '@/components/context/AlertContext';
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
@@ -8,9 +8,12 @@ import ToolbarCategory from '../components/ToolbarCategory';
 
 const CategoriesPage = () => {
 
+    const [categoryName, setCategoryName] = useState('');
+    const [categoryTypeId, setCategoryTypeId] = useState('');
+
     const { showAlert } = useAlert();
 
-    const { data: categories = [], isError, error } = useCategoriesBasicInfoQuery();
+    const { data: categories = [], isError, error } = useCategoriesBasicInfoQuery({ categoryName, categoryTypeId });
 
     useEffect(() => {
         if (isError) {
@@ -20,6 +23,8 @@ const CategoriesPage = () => {
     }, [isError, error, showAlert]);
 
     const handleSearch = (categoryName: string, categoryTypeId: string) => {
+        setCategoryName(categoryName);
+        setCategoryTypeId(categoryTypeId);
         console.log("Searching for categories with name:", categoryName, "and type ID:", categoryTypeId);
     }
 

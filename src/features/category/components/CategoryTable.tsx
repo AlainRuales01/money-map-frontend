@@ -1,9 +1,9 @@
 import Table from '@/components/common/Table';
-import type { GetCategoryBasicInfoDTO } from '@/types/services/category/response/GetCategoryBasicInfoDTO';
+import type { GetCategoryBasicInfoResponseDTO } from "@/types/services/category";
 
 
 export interface CategoryTableProps {
-  categories: GetCategoryBasicInfoDTO[];
+  categories: GetCategoryBasicInfoResponseDTO[];
 }
 
 const COLUMNS = [
