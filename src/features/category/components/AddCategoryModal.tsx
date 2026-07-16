@@ -83,7 +83,7 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
             className="border border-gray-300 p-1 rounded mb-2 text-black"
             onChange={(e) => setCategoryTypeId(e.target.value)}
           >
-            <option value="1" className="text-black">
+            <option value="" className="text-black">
               Select a Category Type
             </option>
             {categoryTypes.map((categoryType) => (
