@@ -9,7 +9,7 @@ export interface CategoryTableProps {
 const COLUMNS = [
     { key: 'name', label: 'Name' },
     { key: 'description', label: 'Description' },
-    { key: 'categoryTypeId', label: 'Category Type ID' },
+    { key: 'categoryTypeName', label: 'Category Type' },
 ];
 
 const CategoryTable = ({ categories }: CategoryTableProps) => {

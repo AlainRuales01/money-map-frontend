@@ -25,7 +25,6 @@ const CategoriesPage = () => {
     const handleSearch = (categoryName: string, categoryTypeId: string) => {
         setCategoryName(categoryName);
         setCategoryTypeId(categoryTypeId);
-        console.log("Searching for categories with name:", categoryName, "and type ID:", categoryTypeId);
     }
 
     return (

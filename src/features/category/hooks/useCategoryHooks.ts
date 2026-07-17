@@ -9,7 +9,7 @@ const CATEGORIES_KEY = 'categories' as const;
 
 export const useCategoriesBasicInfoQuery = ({ categoryName, categoryTypeId }: GetCategoryBasicInfoRequestDTO) => {
     return useQuery({
-        queryKey: [CATEGORIES_KEY, 'basicInfo'],
+        queryKey: [CATEGORIES_KEY, 'basicInfo', { categoryName, categoryTypeId }],
         queryFn: () => categoryService.getCategoryBasicInfo({ categoryName, categoryTypeId })
     });
 }
