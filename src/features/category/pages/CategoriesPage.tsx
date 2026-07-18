@@ -31,9 +31,9 @@ const CategoriesPage = () => {
         <div>
             <h1 className="text-2xl font-bold mb-4">Categories</h1>
             <ToolbarCategory onSearch={handleSearch} />
-            <main>
+            <div>
                 <CategoryTable categories={categories} />
-            </main>
+            </div>
         </div>
     )
 }

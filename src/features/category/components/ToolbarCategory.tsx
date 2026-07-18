@@ -7,7 +7,7 @@ interface ToolbarCategoryProps {
 
 const ToolbarCategory = ({onSearch}: ToolbarCategoryProps) => {
     return (
-        <div className="border-gray-300 py-4 px-2 justify-between flex flex-row">
+        <div className="border-gray-300 py-4 justify-between flex">
             <FilterCategories onSearch={onSearch} />
             <AddCategoryButton />
         </div>
