@@ -1,11 +1,11 @@
 import { moneyMapClient } from "@/services/api/clients/moneyMapClient";
-import type { AddCategoryDTO, GetCategoryBasicInfoRequestDTO, GetCategoryBasicInfoResponseDTO } from "@/types/services/category";
+import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryBasicInfoResponseDTO, GetCategoryModifyInfoRequestDTO, GetCategoryModifyInfoResponseDTO } from "@/types/services/category";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
 
 const BASE_URL = '/Category';
 
 export const categoryService = {
-  async addCategory(category: AddCategoryDTO): Promise<void> {
+  async addCategory(category: AddCategoryRequestDTO): Promise<void> {
     const endPoint = `${BASE_URL}/AddCategory`;
     await moneyMapClient.post(endPoint, category);
   },
@@ -18,6 +18,11 @@ export const categoryService = {
 
   async getCategoryBasicInfo(request: GetCategoryBasicInfoRequestDTO): Promise<GetCategoryBasicInfoResponseDTO[]> {
     const endPoint = `${BASE_URL}/GetCategoriesBasicInfo`;
+    return await moneyMapClient.get(endPoint, { params: request });  
+  },
+
+  async getCategoryModifyInfo(request: GetCategoryModifyInfoRequestDTO): Promise<GetCategoryModifyInfoResponseDTO | null> {
+    const endPoint = `${BASE_URL}/GetCategoryModifyInfo`;
     return await moneyMapClient.get(endPoint, { params: request });  
   }
 }

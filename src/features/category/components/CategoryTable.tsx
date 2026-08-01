@@ -1,5 +1,6 @@
 import Table from '@/components/common/Table';
 import type { GetCategoryBasicInfoResponseDTO } from "@/types/services/category";
+import EditCategoryButton from './EditCategoryButton';
 
 
 export interface CategoryTableProps {
@@ -18,6 +19,9 @@ const CategoryTable = ({ categories }: CategoryTableProps) => {
       <Table
         columns={COLUMNS}
         data={categories}
+        actionComponent={(row) => (
+          <EditCategoryButton id={row.id} />
+        )}
       />
     </div>
   );

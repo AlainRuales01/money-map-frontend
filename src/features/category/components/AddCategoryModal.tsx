@@ -101,7 +101,7 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
           type="submit"
           className="bg-blue-500 text-white px-2 py-1 rounded"
         >
-          Agregar
+          Add
         </button>
       </div>
     </form>
