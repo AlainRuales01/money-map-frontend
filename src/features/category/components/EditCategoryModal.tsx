@@ -35,7 +35,6 @@ const EditCategoryModal = ({id, onClose}: EditCategoryModalProps) => {
     
     return (
         <EditCategoryForm
-            key={categoryData.id}
             name={categoryData.name}
             description={categoryData.description}
             typeId={categoryData.categoryTypeId}
