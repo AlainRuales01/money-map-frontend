@@ -1,5 +1,6 @@
 import { moneyMapClient } from "@/services/api/clients/moneyMapClient";
 import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryBasicInfoResponseDTO, GetCategoryModifyInfoRequestDTO, GetCategoryModifyInfoResponseDTO } from "@/types/services/category";
+import type { UpdateCategoryRequestDTO } from "@/types/services/category/request/UpdateCategoryRequestDTO";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
 
 const BASE_URL = '/Category';
@@ -8,6 +9,11 @@ export const categoryService = {
   async addCategory(category: AddCategoryRequestDTO): Promise<void> {
     const endPoint = `${BASE_URL}/AddCategory`;
     await moneyMapClient.post(endPoint, category);
+  },
+  
+  async updateCategory(category: UpdateCategoryRequestDTO): Promise<void> {
+    const endPoint = `${BASE_URL}/UpdateCategory`;
+    await moneyMapClient.put(endPoint, category);
   },
 
   async getCategoryTypeDropDownOptions(): Promise<DropdownOptionDTO[]> {

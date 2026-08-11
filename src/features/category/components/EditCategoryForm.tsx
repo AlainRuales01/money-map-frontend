@@ -1,25 +1,27 @@
-import { useAddCategoryMutation } from '../hooks/useCategoryHooks';
+import { useUpdateCategoryMutation as useUpdateCategoryMutation } from '../hooks/useCategoryHooks';
 import { useAlert } from '@/components/context/AlertContext';
 import { useCategoryTypesDropDownOptionsQuery } from "@featuresCategoryType/hooks/useCategoryTypeHooks";
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import { useEffect, useState } from 'react';
 
 interface EditCategoryFormProps {
+    id: string;
     name : string;
     description : string;
     typeId : string;
     onClose: () => void;
 }
 
-const EditCategoryForm = ({name, description, typeId, onClose}: EditCategoryFormProps) => {
+const EditCategoryForm = ({id, name, description, typeId, onClose}: EditCategoryFormProps) => {
 
+    const [categoryId] = useState(id || "");
     const [categoryName, setCategoryName] = useState(name || "");
     const [categoryDescription, setCategoryDescription] = useState(description || "");
     const [categoryTypeId, setCategoryTypeId] = useState(typeId || "");
 
     const { data: categoryTypes = [], isError, error } = useCategoryTypesDropDownOptionsQuery();
     
-    const { mutate } = useAddCategoryMutation();
+    const { mutate } = useUpdateCategoryMutation();
     const { showAlert } = useAlert();
 
     useEffect(() => {
@@ -38,6 +40,7 @@ const EditCategoryForm = ({name, description, typeId, onClose}: EditCategoryForm
 
         mutate(
             {
+                id: categoryId,
                 name: categoryName,
                 description: categoryDescription,
                 categoryTypeId: categoryTypeId
@@ -51,7 +54,7 @@ const EditCategoryForm = ({name, description, typeId, onClose}: EditCategoryForm
     };
 
     const validateInputs = () : boolean => {
-        if (!name || !description || !categoryTypeId) {
+        if (!categoryName || !categoryDescription || !categoryTypeId) {
             return false;
         }
         return true;
@@ -62,10 +65,11 @@ const EditCategoryForm = ({name, description, typeId, onClose}: EditCategoryForm
             <div className="flex flex-col gap-2 p-4">
             <h1 className="text-black">Edit Category</h1>
             <div>
-                <label className="text-black pr-2">Name</label>
+                <label htmlFor="categoryName" className="text-black pr-2">Name</label>
                 <input
+                id="categoryName"
                 type="text"
-                value={name}
+                value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
                 placeholder="Name"
                 className="border border-gray-300 p-1 rounded mb-2 text-black"
@@ -73,18 +77,21 @@ const EditCategoryForm = ({name, description, typeId, onClose}: EditCategoryForm
             </div>
 
             <div>
-                <label className="text-black pr-2">Description</label>
+                <label htmlFor="description" className="text-black pr-2">Description</label>
                 <input
+                id="description"
                 type="text"
-                value={description}
+                value={categoryDescription}
                 onChange={(e) => setCategoryDescription(e.target.value)}
                 placeholder="Description"
                 className="border border-gray-300 p-1 rounded mb-2 text-black"
                 />
             </div>
             <div>
-                <label className="text-black pr-2">Category Type</label>
+                <label htmlFor="categoryType" className="text-black pr-2">Category Type</label>
                 <select
+                id="categoryType"
+                value={categoryTypeId}
                 className="border border-gray-300 p-1 rounded mb-2 text-black"
                 onChange={(e) => setCategoryTypeId(e.target.value)}
                 >

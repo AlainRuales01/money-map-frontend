@@ -57,8 +57,9 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
       <div className="flex flex-col gap-2 p-4">
         <h1 className="text-black">Add Category</h1>
         <div>
-          <label className="text-black pr-2">Name</label>
+          <label htmlFor="categoryName" className="text-black pr-2">Name</label>
           <input
+            id="categoryName"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -68,8 +69,9 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
         </div>
 
         <div>
-          <label className="text-black pr-2">Description</label>
+          <label htmlFor="description" className="text-black pr-2">Description</label>
           <input
+            id="description"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -78,8 +80,9 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
           />
         </div>
         <div>
-          <label className="text-black pr-2">Category Type</label>
+          <label htmlFor="categoryType" className="text-black pr-2">Category Type</label>
           <select
+            id="categoryType"
             className="border border-gray-300 p-1 rounded mb-2 text-black"
             onChange={(e) => setCategoryTypeId(e.target.value)}
           >
