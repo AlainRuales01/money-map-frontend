@@ -4,6 +4,7 @@
       "@/*": ["./src/*"],
       "@features/*": ["./src/features/*"],
       "@featuresCategoryType/*": ["./src/features/category-type/*"],
+      "@featuresFinancialResource/*": ["./src/features/financial-resource/*"],
       "@featuresCategory/*": ["./src/features/category/*"]
     },
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
