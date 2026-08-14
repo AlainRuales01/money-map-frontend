@@ -1,4 +1,4 @@
-import { useUpdateCategoryMutation as useUpdateCategoryMutation } from '../hooks/useCategoryHooks';
+import { useUpdateCategoryMutation } from '../hooks/useCategoryHooks';
 import { useAlert } from '@/components/context/AlertContext';
 import { useCategoryTypesDropDownOptionsQuery } from "@featuresCategoryType/hooks/useCategoryTypeHooks";
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
