@@ -25,6 +25,9 @@ export const Navbar = () => {
         <li>
           <Link to="/categories" style={{ color: '#fff', textDecoration: 'none' }}>Categories</Link>
         </li>
+        <li>
+          <Link to="/financial-resources" style={{ color: '#fff', textDecoration: 'none' }}>Financial Resources</Link>
+        </li>
       </ul>
       <h3 style={{ margin: 0 }}>Money Map</h3>
     </nav>

@@ -24,7 +24,7 @@ export const useFinancialResourcesModifyInfoQuery = ({ id }: GetFinancialResourc
     });
 }
 
-export const useAddCategoryMutation = () => {
+export const useAddFinancialResourceMutation = () => {
     const queryClient = useQueryClient();
     const { showAlert } = useAlert();
     
@@ -42,7 +42,7 @@ export const useAddCategoryMutation = () => {
     });
 }
 
-export const useUpdateCategoryMutation = () => {
+export const useUpdateFinancialResourceMutation = () => {
     const queryClient = useQueryClient();
     const { showAlert } = useAlert();
     
