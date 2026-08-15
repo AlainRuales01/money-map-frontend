@@ -63,55 +63,54 @@ const EditCategoryForm = ({id, name, description, typeId, onClose}: EditCategory
     return (
         <form onSubmit={handleAdd}>
             <div className="flex flex-col gap-2 p-4">
-            <h1 className="text-black">Edit Category</h1>
-            <div>
-                <label htmlFor="categoryName" className="text-black pr-2">Name</label>
-                <input
-                id="categoryName"
-                type="text"
-                value={categoryName}
-                onChange={(e) => setCategoryName(e.target.value)}
-                placeholder="Name"
-                className="border border-gray-300 p-1 rounded mb-2 text-black"
-                />
-            </div>
+                <div>
+                    <label htmlFor="categoryName" className="text-black pr-2">Name</label>
+                    <input
+                    id="categoryName"
+                    type="text"
+                    value={categoryName}
+                    onChange={(e) => setCategoryName(e.target.value)}
+                    placeholder="Name"
+                    className="border border-gray-300 p-1 rounded mb-2 text-black"
+                    />
+                </div>
 
-            <div>
-                <label htmlFor="description" className="text-black pr-2">Description</label>
-                <input
-                id="description"
-                type="text"
-                value={categoryDescription}
-                onChange={(e) => setCategoryDescription(e.target.value)}
-                placeholder="Description"
-                className="border border-gray-300 p-1 rounded mb-2 text-black"
-                />
-            </div>
-            <div>
-                <label htmlFor="categoryType" className="text-black pr-2">Category Type</label>
-                <select
-                id="categoryType"
-                value={categoryTypeId}
-                className="border border-gray-300 p-1 rounded mb-2 text-black"
-                onChange={(e) => setCategoryTypeId(e.target.value)}
-                >
-                {categoryTypes.map((categoryType) => (
-                    <option
-                    key={categoryType.id}
-                    className="text-black"
-                    value={categoryType.id}
+                <div>
+                    <label htmlFor="description" className="text-black pr-2">Description</label>
+                    <input
+                    id="description"
+                    type="text"
+                    value={categoryDescription}
+                    onChange={(e) => setCategoryDescription(e.target.value)}
+                    placeholder="Description"
+                    className="border border-gray-300 p-1 rounded mb-2 text-black"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="categoryType" className="text-black pr-2">Category Type</label>
+                    <select
+                    id="categoryType"
+                    value={categoryTypeId}
+                    className="border border-gray-300 p-1 rounded mb-2 text-black"
+                    onChange={(e) => setCategoryTypeId(e.target.value)}
                     >
-                    {categoryType.name}
-                    </option>
-                ))}
-                </select>
-            </div>
-            <button
-                type="submit"
-                className="bg-blue-500 text-white px-2 py-1 rounded"
-            >
-                Save Changes
-            </button>
+                    {categoryTypes.map((categoryType) => (
+                        <option
+                        key={categoryType.id}
+                        className="text-black"
+                        value={categoryType.id}
+                        >
+                        {categoryType.name}
+                        </option>
+                    ))}
+                    </select>
+                </div>
+                <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-2 py-1 rounded"
+                >
+                    Save Changes
+                </button>
             </div>
         </form>
     );

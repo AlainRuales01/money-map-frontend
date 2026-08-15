@@ -18,6 +18,7 @@ const AddCategoryButton = () => {
             <Modal 
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
+                title="Add Category"
             >
                 <AddCategoryModal
                     onClose={() => setShowModal(false)} 

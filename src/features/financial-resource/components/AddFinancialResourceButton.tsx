@@ -18,6 +18,7 @@ const AddFinancialResourceButton = () => {
             <Modal 
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
+                title="Add Financial Resource"
             >
                 <AddFinancialResourceModal
                     onClose={() => setShowModal(false)} 

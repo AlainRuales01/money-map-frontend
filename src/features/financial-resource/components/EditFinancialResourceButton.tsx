@@ -22,6 +22,7 @@ const EditFinancialResourceButton = ({id}: EditFinancialResourceButtonProps) => 
             <Modal 
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
+                title="Edit Financial Resource"
             >
                 <EditFinancialResourceModal
                     id={id}

@@ -40,7 +40,6 @@ const AddFinancialResourceModal = ({onClose}: AddFinancialResourceModalProps) =>
   return (
     <form onSubmit={handleAdd}>
       <div className="flex flex-col gap-2 p-4">
-        <h1 className="text-black">Add Financial Resource</h1>
         <div>
           <label htmlFor="financialResourceName" className="text-black pr-2">Name</label>
           <input

@@ -5,10 +5,10 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  title?: string;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-    
+const Modal = ({ isOpen, onClose, children, title }: ModalProps) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -29,6 +29,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         <button type="button" className="absolute top-2 right-2 text-gray-500" onClick={onClose}>
           ✖
         </button>
+        {title && <h1 className="text-black">{title}</h1>}
         {children}
       </div>
     </div>,

@@ -22,6 +22,7 @@ const EditCategoryButton = ({id}: EditCategoryButtonProps) => {
             <Modal 
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
+                title="Edit Category"
             >
                 <EditCategoryModal
                     id={id}

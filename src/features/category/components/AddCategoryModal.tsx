@@ -55,7 +55,6 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
   return (
     <form onSubmit={handleAdd}>
       <div className="flex flex-col gap-2 p-4">
-        <h1 className="text-black">Add Category</h1>
         <div>
           <label htmlFor="categoryName" className="text-black pr-2">Name</label>
           <input
