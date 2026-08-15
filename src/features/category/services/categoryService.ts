@@ -1,5 +1,5 @@
 import { moneyMapClient } from "@/services/api/clients/moneyMapClient";
-import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryBasicInfoResponseDTO, GetCategoryModifyInfoRequestDTO, GetCategoryModifyInfoResponseDTO } from "@/types/services/category";
+import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryBasicInfoResponseDTO, GetCategoryUpdateInfoRequestDTO, GetCategoryUpdateInfoResponseDTO } from "@/types/services/category";
 import type { UpdateCategoryRequestDTO } from "@/types/services/category/request/UpdateCategoryRequestDTO";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
 
@@ -27,8 +27,8 @@ export const categoryService = {
     return await moneyMapClient.get(endPoint, { params: request });  
   },
 
-  async getCategoryModifyInfo(request: GetCategoryModifyInfoRequestDTO): Promise<GetCategoryModifyInfoResponseDTO | null> {
-    const endPoint = `${BASE_URL}/GetCategoryModifyInfo`;
+  async getCategoryUpdateInfo(request: GetCategoryUpdateInfoRequestDTO): Promise<GetCategoryUpdateInfoResponseDTO | null> {
+    const endPoint = `${BASE_URL}/GetCategoryUpdateInfo`;
     return await moneyMapClient.get(endPoint, { params: request });  
   }
 }

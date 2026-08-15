@@ -1,10 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAlert } from '@/components/context/AlertContext';
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
-import type { GetFinancialResourceModifyInfoRequestDTO } from '@/types/services/financial-resource/request/GetFinancialResourceModifyInfoRequestDTO';
 import { financialResourceService } from '@featuresFinancialResource/services/financialResourceService';
 import type { GetFinancialResourceBasicInfoRequestDTO } from '@/types/services/financial-resource/request/GetFinancialResourceBasicInfoRequestDTO';
-import type { AddFinancialResourceRequestDTO, UpdateFinancialResourceRequestDTO } from '@/types/services/financial-resource';
+import type { AddFinancialResourceRequestDTO, GetFinancialResourceUpdateInfoRequestDTO, UpdateFinancialResourceRequestDTO } from '@/types/services/financial-resource';
 
 
 const FINANCIAL_RESOURCES_KEY = 'financialResources' as const;
@@ -17,10 +16,10 @@ export const useFinancialResourcesBasicInfoQuery = ({ financialResourceName }: G
     });
 }
 
-export const useFinancialResourcesModifyInfoQuery = ({ id }: GetFinancialResourceModifyInfoRequestDTO) => {
+export const useFinancialResourcesUpdateInfoQuery = ({ id }: GetFinancialResourceUpdateInfoRequestDTO) => {
     return useQuery({
-        queryKey: [FINANCIAL_RESOURCES_KEY, 'modifyInfo', { id }],
-        queryFn: () => financialResourceService.getFinancialResourceModifyInfo({ id })
+        queryKey: [FINANCIAL_RESOURCES_KEY, 'updateInfo', { id }],
+        queryFn: () => financialResourceService.getFinancialResourceUpdateInfo({ id })
     });
 }
 
@@ -51,7 +50,7 @@ export const useUpdateFinancialResourceMutation = () => {
         mutationFn: (financialResource: UpdateFinancialResourceRequestDTO) => financialResourceService.updateFinancialResource(financialResource),
         onSuccess: (_data, variables) => {
             queryClient.invalidateQueries({ queryKey: [FINANCIAL_RESOURCES_KEY, 'basicInfo'] });
-            queryClient.invalidateQueries({ queryKey: [FINANCIAL_RESOURCES_KEY, 'modifyInfo', { id: variables.id }], exact: true });
+            queryClient.invalidateQueries({ queryKey: [FINANCIAL_RESOURCES_KEY, 'updateInfo', { id: variables.id }], exact: true });
             showAlert("Financial resource updated successfully", "success");
         },
         onError: (error: unknown) => {

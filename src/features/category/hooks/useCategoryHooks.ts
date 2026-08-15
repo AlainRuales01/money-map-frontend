@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { categoryService } from '@featuresCategory/services/categoryService';
 import { useAlert } from '@/components/context/AlertContext';
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
-import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryModifyInfoRequestDTO } from '@/types/services/category';
+import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryUpdateInfoRequestDTO } from '@/types/services/category';
 import type { UpdateCategoryRequestDTO } from '@/types/services/category/request/UpdateCategoryRequestDTO';
 
 const CATEGORIES_KEY = 'categories' as const;
@@ -14,10 +14,10 @@ export const useCategoriesBasicInfoQuery = ({ categoryName, categoryTypeId }: Ge
     });
 }
 
-export const useCategoriesModifyInfoQuery = ({ id }: GetCategoryModifyInfoRequestDTO) => {
+export const useCategoriesUpdateInfoQuery = ({ id }: GetCategoryUpdateInfoRequestDTO) => {
     return useQuery({
-        queryKey: [CATEGORIES_KEY, 'modifyInfo', { id }],
-        queryFn: () => categoryService.getCategoryModifyInfo({ id })
+        queryKey: [CATEGORIES_KEY, 'updateInfo', { id }],
+        queryFn: () => categoryService.getCategoryUpdateInfo({ id })
     });
 }
 
@@ -48,7 +48,7 @@ export const useUpdateCategoryMutation = () => {
         mutationFn: (category: UpdateCategoryRequestDTO) => categoryService.updateCategory(category),
         onSuccess: (_data, variables) => {
             queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY, 'basicInfo'] });
-            queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY, 'modifyInfo', { id: variables.id }], exact: true });
+            queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY, 'updateInfo', { id: variables.id }], exact: true });
             showAlert("Category updated successfully", "success");
         },
         onError: (error: unknown) => {

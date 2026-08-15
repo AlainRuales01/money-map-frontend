@@ -1,4 +1,4 @@
-export interface GetCategoryModifyInfoResponseDTO {
+export interface GetCategoryUpdateInfoResponseDTO {
     id : string,
     name : string,
     description : string, 

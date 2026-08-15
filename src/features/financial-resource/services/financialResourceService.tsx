@@ -1,7 +1,7 @@
 import { moneyMapClient } from "@/services/api/clients/moneyMapClient";
 
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
-import type { AddFinancialResourceRequestDTO, GetFinancialResourceBasicInfoRequestDTO, GetFinancialResourceBasicInfoResponseDTO, GetFinancialResourceModifyInfoRequestDTO, GetFinancialResourceModifyInfoResponseDTO, UpdateFinancialResourceRequestDTO } from "@/types/services/financial-resource";
+import type { AddFinancialResourceRequestDTO, GetFinancialResourceBasicInfoRequestDTO, GetFinancialResourceBasicInfoResponseDTO, GetFinancialResourceUpdateInfoRequestDTO, GetFinancialResourceUpdateInfoResponseDTO, UpdateFinancialResourceRequestDTO } from "@/types/services/financial-resource";
 
 const BASE_URL = '/FinancialResource';
 
@@ -27,8 +27,8 @@ export const financialResourceService = {
     return await moneyMapClient.get(endPoint, { params: request });  
   },
 
-  async getFinancialResourceModifyInfo(request: GetFinancialResourceModifyInfoRequestDTO): Promise<GetFinancialResourceModifyInfoResponseDTO | null> {
-    const endPoint = `${BASE_URL}/GetFinancialResourceModifyInfo`;
+  async getFinancialResourceUpdateInfo(request: GetFinancialResourceUpdateInfoRequestDTO): Promise<GetFinancialResourceUpdateInfoResponseDTO | null> {
+    const endPoint = `${BASE_URL}/GetFinancialResourceUpdateInfo`;
     return await moneyMapClient.get(endPoint, { params: request });  
   }
 }

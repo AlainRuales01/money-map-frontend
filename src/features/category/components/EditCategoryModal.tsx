@@ -2,7 +2,7 @@ import { useAlert } from '@/components/context/AlertContext';
 
 import { useEffect } from "react";
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
-import { useCategoriesModifyInfoQuery } from '@featuresCategory/hooks/useCategoryHooks';
+import { useCategoriesUpdateInfoQuery } from '@featuresCategory/hooks/useCategoryHooks';
 import EditCategoryForm from '@featuresCategory/components/EditCategoryForm';
 
 interface EditCategoryModalProps {
@@ -12,7 +12,7 @@ interface EditCategoryModalProps {
 
 const EditCategoryModal = ({id, onClose}: EditCategoryModalProps) => {
 
-    const { data: categoryData, isError: isCategoryError, error: categoryError, isLoading: isCategoryLoading } = useCategoriesModifyInfoQuery({ id });
+    const { data: categoryData, isError: isCategoryError, error: categoryError, isLoading: isCategoryLoading } = useCategoriesUpdateInfoQuery({ id });
 
     const { showAlert } = useAlert();
 

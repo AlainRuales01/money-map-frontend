@@ -3,7 +3,7 @@ import { useAlert } from '@/components/context/AlertContext';
 import { useEffect } from "react";
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import EditFinancialResourceForm from './EditFinancialResourceForm';
-import { useFinancialResourcesModifyInfoQuery } from '../hooks/useFinancialResourceHooks';
+import { useFinancialResourcesUpdateInfoQuery } from '../hooks/useFinancialResourceHooks';
 
 interface EditFinancialResourceModalProps {
     id: string;
@@ -12,7 +12,7 @@ interface EditFinancialResourceModalProps {
 
 const EditFinancialResourceModal = ({id, onClose}: EditFinancialResourceModalProps) => {
 
-    const { data: financialResourceData, isError: isFinancialResourceError, error: financialResourceError, isLoading: isFinancialResourceLoading } = useFinancialResourcesModifyInfoQuery({ id });
+    const { data: financialResourceData, isError: isFinancialResourceError, error: financialResourceError, isLoading: isFinancialResourceLoading } = useFinancialResourcesUpdateInfoQuery({ id });
 
     const { showAlert } = useAlert();
 

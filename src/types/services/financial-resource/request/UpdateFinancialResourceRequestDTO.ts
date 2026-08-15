@@ -1,4 +1,3 @@
-export interface UpdateFinancialResourceRequestDTO {
-    id: string;
-    name: string;
-}
+import type { UpdateCatalogObjectDTO } from "../../common/UpdateCatalogObjectDTO";
+
+export type UpdateFinancialResourceRequestDTO = UpdateCatalogObjectDTO;
