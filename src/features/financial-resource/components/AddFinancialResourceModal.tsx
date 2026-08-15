@@ -9,6 +9,7 @@ interface AddFinancialResourceModalProps {
 
 const AddFinancialResourceModal = ({onClose}: AddFinancialResourceModalProps) => {
   const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const { showAlert } = useAlert();
 
   const { mutate } = useAddFinancialResourceMutation();
@@ -21,7 +22,8 @@ const AddFinancialResourceModal = ({onClose}: AddFinancialResourceModalProps) =>
     }
 
     mutate({
-      name: name
+      name: name,
+      description: description
     }, 
     {
       onSuccess: () => {
@@ -31,7 +33,7 @@ const AddFinancialResourceModal = ({onClose}: AddFinancialResourceModalProps) =>
   };
 
   const validateInputs = () : boolean => {
-    if (!name) {
+    if (!name || !description) {
       return false;
     }
     return true;
@@ -48,6 +50,18 @@ const AddFinancialResourceModal = ({onClose}: AddFinancialResourceModalProps) =>
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Name"
+            className="border border-gray-300 p-1 rounded mb-2 text-black"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="description" className="text-black pr-2">Description</label>
+          <input
+            id="description"
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Description"
             className="border border-gray-300 p-1 rounded mb-2 text-black"
           />
         </div>

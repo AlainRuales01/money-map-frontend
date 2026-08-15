@@ -5,13 +5,15 @@ import { useState } from 'react';
 interface EditFinancialResourceFormProps {
     id: string;
     name : string;
+    description : string;
     onClose: () => void;
 }
 
-const EditFinancialResourceForm = ({id, name, onClose}: EditFinancialResourceFormProps) => {
+const EditFinancialResourceForm = ({id, name, description, onClose}: EditFinancialResourceFormProps) => {
 
     const [financialResourceId] = useState(id || "");
     const [financialResourceName, setFinancialResourceName] = useState(name || "");
+    const [financialResourceDescription, setFinancialResourceDescription] = useState(description || "");
     
     const { mutate } = useUpdateFinancialResourceMutation();
     const { showAlert } = useAlert();
@@ -26,7 +28,8 @@ const EditFinancialResourceForm = ({id, name, onClose}: EditFinancialResourceFor
         mutate(
             {
                 id: financialResourceId,
-                name: financialResourceName
+                name: financialResourceName,
+                description: financialResourceDescription
             }, 
             {
                 onSuccess: () => {
@@ -37,7 +40,7 @@ const EditFinancialResourceForm = ({id, name, onClose}: EditFinancialResourceFor
     };
 
     const validateInputs = () : boolean => {
-        if (!financialResourceName) {
+        if (!financialResourceName || !financialResourceDescription) {
             return false;
         }
         return true;
@@ -54,6 +57,18 @@ const EditFinancialResourceForm = ({id, name, onClose}: EditFinancialResourceFor
                     value={financialResourceName}
                     onChange={(e) => setFinancialResourceName(e.target.value)}
                     placeholder="Name"
+                    className="border border-gray-300 p-1 rounded mb-2 text-black"
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="description" className="text-black pr-2">Description</label>
+                    <input
+                    id="description"
+                    type="text"
+                    value={financialResourceDescription}
+                    onChange={(e) => setFinancialResourceDescription(e.target.value)}
+                    placeholder="Description"
                     className="border border-gray-300 p-1 rounded mb-2 text-black"
                     />
                 </div>

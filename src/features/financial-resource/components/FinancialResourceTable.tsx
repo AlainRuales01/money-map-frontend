@@ -9,7 +9,8 @@ export interface FinancialResourceTableProps {
 }
 
 const COLUMNS = [
-    { key: 'name', label: 'Name' }
+    { key: 'name', label: 'Name' },
+    { key: 'description', label: 'Description' }
 ];
 
 const FinancialResourceTable = ({ financialResources: financialResources }: FinancialResourceTableProps) => {
