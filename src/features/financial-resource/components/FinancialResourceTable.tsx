@@ -12,12 +12,12 @@ const COLUMNS = [
     { key: 'name', label: 'Name' }
 ];
 
-const FinancialResourceTable = ({ financialResources: categories }: FinancialResourceTableProps) => {
+const FinancialResourceTable = ({ financialResources: financialResources }: FinancialResourceTableProps) => {
   return (
     <div>
       <Table
         columns={COLUMNS}
-        data={categories}
+        data={financialResources}
         actionComponent={(row) => (
           <EditFinancialResourceButton id={row.id} />
         )}
