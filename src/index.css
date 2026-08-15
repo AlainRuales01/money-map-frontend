@@ -77,8 +77,9 @@
   }
 
   h1 {
-    font-size: 56px;
+    font-size: 40px;
     letter-spacing: -1.68px;
+    line-height: 0.8;
     margin: 32px 0;
     @media (max-width: 1024px) {
       font-size: 36px;
