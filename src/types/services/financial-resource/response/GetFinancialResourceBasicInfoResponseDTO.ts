@@ -3,4 +3,5 @@ export interface GetFinancialResourceBasicInfoResponseDTO {
     name: string;
     description: string;
     amount : number;
+    isActive : boolean;
 }

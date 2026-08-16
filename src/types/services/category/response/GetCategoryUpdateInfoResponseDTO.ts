@@ -3,4 +3,5 @@ export interface GetCategoryUpdateInfoResponseDTO {
     name : string,
     description : string, 
     categoryTypeId : string, 
+    isActive : boolean
 }

@@ -1,3 +1,4 @@
 export interface GetFinancialResourceBasicInfoRequestDTO {
-    financialResourceName: string;
+    financialResourceName?: string;
+    onlyActive?: boolean;
 }
