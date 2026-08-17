@@ -22,7 +22,7 @@ const FinancialResourceTable = ({ financialResources }: FinancialResourceTablePr
         columns={COLUMNS}
         data={financialResources}
         actionComponent={(row) => (
-          row.isActive && <EditFinancialResourceButton id={row.id} />
+          <EditFinancialResourceButton id={row.id} />
         )}
       />
     </div>
