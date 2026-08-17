@@ -21,7 +21,7 @@ const CategoryTable = ({ categories }: CategoryTableProps) => {
         columns={COLUMNS}
         data={categories}
         actionComponent={(row) => (
-          <EditCategoryButton id={row.id} />
+          row.isUpdateable && <EditCategoryButton id={row.id} />
         )}
       />
     </div>

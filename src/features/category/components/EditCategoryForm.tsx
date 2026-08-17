@@ -9,15 +9,17 @@ interface EditCategoryFormProps {
     name : string;
     description : string;
     typeId : string;
+    isActive : boolean;
     onClose: () => void;
 }
 
-const EditCategoryForm = ({id, name, description, typeId, onClose}: EditCategoryFormProps) => {
+const EditCategoryForm = ({id, name, description, typeId, isActive, onClose}: EditCategoryFormProps) => {
 
     const [categoryId] = useState(id || "");
     const [categoryName, setCategoryName] = useState(name || "");
     const [categoryDescription, setCategoryDescription] = useState(description || "");
     const [categoryTypeId, setCategoryTypeId] = useState(typeId || "");
+    const [categoryIsActive, setCategoryIsActive] = useState(isActive || false);
 
     const { data: categoryTypes = [], isError, error } = useCategoryTypesDropDownOptionsQuery();
     
@@ -43,7 +45,8 @@ const EditCategoryForm = ({id, name, description, typeId, onClose}: EditCategory
                 id: categoryId,
                 name: categoryName,
                 description: categoryDescription,
-                categoryTypeId: categoryTypeId
+                categoryTypeId: categoryTypeId,
+                isActive: categoryIsActive
             }, 
             {
                 onSuccess: () => {
@@ -104,6 +107,16 @@ const EditCategoryForm = ({id, name, description, typeId, onClose}: EditCategory
                         </option>
                     ))}
                     </select>
+                </div>
+                <div>
+                    <label htmlFor="isActive" className="text-black pr-2">Active</label>
+                    <input
+                        id="isActive"
+                        type="checkbox"
+                        checked={categoryIsActive}
+                        onChange={(e) => setCategoryIsActive(e.target.checked)}
+                        className="border border-gray-300 p-1 rounded mb-2 text-black"
+                    />
                 </div>
                 <button
                     type="submit"

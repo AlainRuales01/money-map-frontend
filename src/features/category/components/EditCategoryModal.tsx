@@ -39,6 +39,7 @@ const EditCategoryModal = ({id, onClose}: EditCategoryModalProps) => {
             name={categoryData.name}
             description={categoryData.description}
             typeId={categoryData.categoryTypeId}
+            isActive={categoryData.isActive}
             onClose={onClose}
         />
     )
