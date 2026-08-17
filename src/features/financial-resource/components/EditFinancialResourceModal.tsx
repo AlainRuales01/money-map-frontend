@@ -38,6 +38,7 @@ const EditFinancialResourceModal = ({id, onClose}: EditFinancialResourceModalPro
             id={id}
             name={financialResourceData.name}
             description={financialResourceData.description}
+            isActive={financialResourceData.isActive}
             onClose={onClose}
         />
     )

@@ -9,10 +9,11 @@ import FinancialResourceTable from '../components/FinancialResourceTable';
 const FinancialResourcePage = () => {
 
     const [financialResourceName, setFinancialResourceName] = useState('');
+    const [onlyActive, setOnlyActive] = useState(false);
 
     const { showAlert } = useAlert();
 
-    const { data: financialResource = [], isError, error } = useFinancialResourcesBasicInfoQuery({ financialResourceName: financialResourceName });
+    const { data: financialResources = [], isError, error } = useFinancialResourcesBasicInfoQuery({ financialResourceName, onlyActive });
 
     useEffect(() => {
         if (isError) {
@@ -21,8 +22,9 @@ const FinancialResourcePage = () => {
         }
     }, [isError, error, showAlert]);
 
-    const handleSearch = (financialResourceName: string) => {
+    const handleSearch = (financialResourceName: string, onlyActive: boolean) => {
         setFinancialResourceName(financialResourceName);
+        setOnlyActive(onlyActive);
     }
 
     return (
@@ -30,7 +32,7 @@ const FinancialResourcePage = () => {
             <h1 className="text-2xl font-bold mb-4">Financial Resources</h1>
             <ToolbarFinancialResource onSearch={handleSearch} />
             <div>
-                <FinancialResourceTable financialResources={financialResource} />
+                <FinancialResourceTable financialResources={financialResources} />
             </div>
         </div>
     )

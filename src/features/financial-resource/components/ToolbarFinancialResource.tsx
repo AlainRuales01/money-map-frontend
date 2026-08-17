@@ -2,7 +2,7 @@ import AddFinancialResourceButton from "./AddFinancialResourceButton";
 import FilterFinancialResources from "./FilterFinancialResources";
 
 interface ToolbarFinancialResourceProps {
-    onSearch: (searchTerm: string) => void;
+    onSearch: (searchTerm: string, onlyActive: boolean) => void;
 }
 
 const ToolbarFinancialResource = ({onSearch}: ToolbarFinancialResourceProps) => {

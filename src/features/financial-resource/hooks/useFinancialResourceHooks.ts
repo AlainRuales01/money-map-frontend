@@ -9,10 +9,10 @@ import type { AddFinancialResourceRequestDTO, GetFinancialResourceUpdateInfoRequ
 const FINANCIAL_RESOURCES_KEY = 'financialResources' as const;
 
 // SE DEBE CAMBIAR PARA QUE SIEMPRE SE INVALIDE A BUSCAR PORQUE EL MONTO PUEDE CAMBIAR A CADA RATO
-export const useFinancialResourcesBasicInfoQuery = ({ financialResourceName }: GetFinancialResourceBasicInfoRequestDTO) => {
+export const useFinancialResourcesBasicInfoQuery = ({ financialResourceName, onlyActive }: GetFinancialResourceBasicInfoRequestDTO) => {
     return useQuery({
-        queryKey: [FINANCIAL_RESOURCES_KEY, 'basicInfo', { financialResourceName }],
-        queryFn: () => financialResourceService.getFinancialResourceBasicInfo({ financialResourceName })
+        queryKey: [FINANCIAL_RESOURCES_KEY, 'basicInfo', { financialResourceName, onlyActive }],
+        queryFn: () => financialResourceService.getFinancialResourceBasicInfo({ financialResourceName, onlyActive })
     });
 }
 
