@@ -115,7 +115,6 @@ const EditCategoryForm = ({id, name, description, typeId, isActive, onClose}: Ed
                         type="checkbox"
                         checked={categoryIsActive}
                         onChange={(e) => setCategoryIsActive(e.target.checked)}
-                        className="border border-gray-300 p-1 rounded mb-2 text-black"
                     />
                 </div>
                 <button
