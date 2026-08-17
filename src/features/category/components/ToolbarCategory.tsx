@@ -2,7 +2,7 @@ import AddCategoryButton from "./AddCategoryButton";
 import FilterCategories from "./FilterCategories";
 
 interface ToolbarCategoryProps {
-    onSearch: (searchTerm: string, categoryTypeId: string) => void;
+    onSearch: (searchTerm: string, categoryTypeId: string, onlyActive: boolean) => void;
 }
 
 const ToolbarCategory = ({onSearch}: ToolbarCategoryProps) => {

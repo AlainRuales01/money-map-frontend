@@ -10,10 +10,11 @@ const CategoriesPage = () => {
 
     const [categoryName, setCategoryName] = useState('');
     const [categoryTypeId, setCategoryTypeId] = useState('');
+    const [onlyActive, setOnlyActive] = useState(false);
 
     const { showAlert } = useAlert();
 
-    const { data: categories = [], isError, error } = useCategoriesBasicInfoQuery({ categoryName, categoryTypeId });
+    const { data: categories = [], isError, error } = useCategoriesBasicInfoQuery({ categoryName, categoryTypeId, onlyActive });
 
     useEffect(() => {
         if (isError) {
@@ -22,9 +23,10 @@ const CategoriesPage = () => {
         }
     }, [isError, error, showAlert]);
 
-    const handleSearch = (categoryName: string, categoryTypeId: string) => {
+    const handleSearch = (categoryName: string, categoryTypeId: string, onlyActive: boolean) => {
         setCategoryName(categoryName);
         setCategoryTypeId(categoryTypeId);
+        setOnlyActive(onlyActive);
     }
 
     return (

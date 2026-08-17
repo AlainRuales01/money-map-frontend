@@ -4,12 +4,13 @@ import { getApiResponseMessageError } from "@/utils/moneyMapApiUtil";
 import { useEffect, useState } from "react";
 
 interface FilterCategoriesProps {
-    onSearch: (categoryName: string, categoryTypeId: string) => void;
+    onSearch: (categoryName: string, categoryTypeId: string, onlyActive: boolean) => void;
 }
 
 const FilterCategories = ({onSearch}: FilterCategoriesProps) => {
     const [categoryName, setCategoryName] = useState('');
     const [categoryTypeId, setCategoryTypeId] = useState('');
+    const [onlyActive, setOnlyActive] = useState(false);
 
     const { showAlert } = useAlert();
     const { data: categoryTypes = [], isError, error } = useCategoryTypesDropDownOptionsQuery();
@@ -26,11 +27,11 @@ const FilterCategories = ({onSearch}: FilterCategoriesProps) => {
                 <input 
                     type = "text" 
                     placeholder="Search categories..." 
-                    className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80"
+                    className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-60"
                     onChange={(e) => setCategoryName(e.target.value)}
                 />
                 <select 
-                    className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80" 
+                    className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-70" 
                     onChange={(e) => setCategoryTypeId(e.target.value)}>
                     <option value="">All Categories</option>
                     {categoryTypes.map((categoryType) => (
@@ -43,13 +44,21 @@ const FilterCategories = ({onSearch}: FilterCategoriesProps) => {
                         </option>
                     ))}
                 </select>
+                <div className="flex items-center gap-2 border border-gray-300 rounded-md py-2 px-4">
+                    <label>Only actives</label>
+                    <input
+                        type="checkbox"
+                        checked={onlyActive}
+                        onChange={(e) => setOnlyActive(e.target.checked)}
+                    />
+                </div>
                 <button 
                     type="submit" 
                     className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                     onClick={
                         (e) => {
                             e.preventDefault();
-                            onSearch(categoryName, categoryTypeId);
+                            onSearch(categoryName, categoryTypeId, onlyActive);
                         }
                     }
                 >

@@ -7,10 +7,10 @@ import type { UpdateCategoryRequestDTO } from '@/types/services/category/request
 
 const CATEGORIES_KEY = 'categories' as const;
 
-export const useCategoriesBasicInfoQuery = ({ categoryName, categoryTypeId }: GetCategoryBasicInfoRequestDTO) => {
+export const useCategoriesBasicInfoQuery = ({ categoryName, categoryTypeId, onlyActive }: GetCategoryBasicInfoRequestDTO) => {
     return useQuery({
-        queryKey: [CATEGORIES_KEY, 'basicInfo', { categoryName, categoryTypeId }],
-        queryFn: () => categoryService.getCategoryBasicInfo({ categoryName, categoryTypeId })
+        queryKey: [CATEGORIES_KEY, 'basicInfo', { categoryName, categoryTypeId, onlyActive }],
+        queryFn: () => categoryService.getCategoryBasicInfo({ categoryName, categoryTypeId, onlyActive })
     });
 }
 
