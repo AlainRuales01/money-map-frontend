@@ -1,4 +1,4 @@
-export interface GetFinancialResourceUpdateInfoResponseDTO {
+export interface FinancialResourceUpdateInfoResponseDTO {
     id : string;
     name : string;
     description : string;

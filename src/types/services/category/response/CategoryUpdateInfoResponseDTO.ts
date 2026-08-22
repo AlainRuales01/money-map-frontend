@@ -1,4 +1,4 @@
-export interface GetCategoryUpdateInfoResponseDTO {
+export interface CategoryUpdateInfoResponseDTO {
     id : string,
     name : string,
     description : string, 

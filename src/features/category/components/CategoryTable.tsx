@@ -1,10 +1,10 @@
 import Table from '@/components/common/Table';
-import type { GetCategoryBasicInfoResponseDTO } from "@/types/services/category";
+import type { CategoryBasicInfoResponseDTO } from "@/types/services/category";
 import EditCategoryButton from './EditCategoryButton';
 
 
 export interface CategoryTableProps {
-  categories: GetCategoryBasicInfoResponseDTO[];
+  categories: CategoryBasicInfoResponseDTO[];
 }
 
 const COLUMNS = [

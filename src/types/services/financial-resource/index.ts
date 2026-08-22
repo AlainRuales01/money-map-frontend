@@ -4,5 +4,5 @@ export * from './request/GetFinancialResourceBasicInfoRequestDTO';
 export * from './request/GetFinancialResourceUpdateInfoRequestDTO';
 export * from './request/UpdateFinancialResourceRequestDTO';
 // export responses
-export * from './response/GetFinancialResourceBasicInfoResponseDTO';
-export * from './response/GetFinancialResourceUpdateInfoResponseDTO';
+export * from './response/FinancialResourceBasicInfoResponseDTO';
+export * from './response/FinancialResourceUpdateInfoResponseDTO';

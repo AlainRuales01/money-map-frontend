@@ -1,11 +1,11 @@
 import Table from '@/components/common/Table';
 
 import EditFinancialResourceButton from './EditFinancialResourceButton';
-import type { GetFinancialResourceBasicInfoResponseDTO } from '@/types/services/financial-resource/response/GetFinancialResourceBasicInfoResponseDTO';
+import type { FinancialResourceBasicInfoResponseDTO } from '@/types/services/financial-resource/response/FinancialResourceBasicInfoResponseDTO';
 
 
 export interface FinancialResourceTableProps {
-  financialResources: GetFinancialResourceBasicInfoResponseDTO[];
+  financialResources: FinancialResourceBasicInfoResponseDTO[];
 }
 
 const COLUMNS = [
