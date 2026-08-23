@@ -29,5 +29,11 @@ export const categoryService = {
   async getCategoryUpdateInfo(request: GetCategoryUpdateInfoRequestDTO): Promise<CategoryUpdateInfoResponseDTO | null> {
     const endPoint = `${BASE_URL}/GetCategoryUpdateInfo`;
     return await moneyMapClient.get(endPoint, { params: request });  
-  }
+  },
+
+  async getCategoryDropDownOptions(): Promise<DropdownOptionDTO[]> {
+      const endPoint = `${BASE_URL}/GetCategoryDropDownOptionsAsync`;
+      return await moneyMapClient.get(endPoint);
+    }
+  
 }

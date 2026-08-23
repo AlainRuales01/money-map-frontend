@@ -5,7 +5,7 @@ const CATEGORY_TYPES_KEY = 'categoryTypes' as const;
 
 export const useCategoryTypesDropDownOptionsQuery = () => {
     return useQuery({
-        queryKey: [CATEGORY_TYPES_KEY, 'basicInfo'],
+        queryKey: [CATEGORY_TYPES_KEY, 'dropDownOptions'],
         queryFn: () => categoryTypeService.getCategoryTypeDropDownOptions()
     });
 }

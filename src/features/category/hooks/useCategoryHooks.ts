@@ -57,3 +57,10 @@ export const useUpdateCategoryMutation = () => {
         }
     });
 }
+
+export const useCategoriesDropDownOptionsQuery = () => {
+    return useQuery({
+        queryKey: [CATEGORIES_KEY, 'dropDownOptions'],
+        queryFn: () => categoryService.getCategoryDropDownOptions()
+    });
+}
