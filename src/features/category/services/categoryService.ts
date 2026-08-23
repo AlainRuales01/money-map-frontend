@@ -1,6 +1,5 @@
 import { moneyMapClient } from "@/services/api/clients/moneyMapClient";
-import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, CategoryBasicInfoResponseDTO, GetCategoryUpdateInfoRequestDTO, CategoryUpdateInfoResponseDTO } from "@/types/services/category";
-import type { UpdateCategoryRequestDTO } from "@/types/services/category/request/UpdateCategoryRequestDTO";
+import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, CategoryBasicInfoResponseDTO, GetCategoryUpdateInfoRequestDTO, CategoryUpdateInfoResponseDTO, UpdateCategoryRequestDTO } from "@/types/services/category";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
 
 const BASE_URL = '/Category';
