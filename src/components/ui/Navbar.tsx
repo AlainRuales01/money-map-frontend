@@ -28,6 +28,9 @@ export const Navbar = () => {
         <li>
           <Link to="/financial-resources" style={{ color: '#fff', textDecoration: 'none' }}>Financial Resources</Link>
         </li>
+        <li>
+          <Link to="/budgets" style={{ color: '#fff', textDecoration: 'none' }}>Budgets</Link>
+        </li>
       </ul>
       <h3 style={{ margin: 0 }}>Money Map</h3>
     </nav>

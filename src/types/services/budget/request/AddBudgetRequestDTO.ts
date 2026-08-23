@@ -2,5 +2,5 @@ export interface AddBudgetRequestDTO {
     amount : number;
     startDate : string;
     endDate : string;
-    categoryId : number;
+    categoryId : string;
 }

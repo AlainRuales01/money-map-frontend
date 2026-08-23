@@ -32,7 +32,7 @@ export const categoryService = {
   },
 
   async getCategoryDropDownOptions(): Promise<DropdownOptionDTO[]> {
-      const endPoint = `${BASE_URL}/GetCategoryDropDownOptionsAsync`;
+      const endPoint = `${BASE_URL}/GetCategoryDropDownOptions`;
       return await moneyMapClient.get(endPoint);
     }
   

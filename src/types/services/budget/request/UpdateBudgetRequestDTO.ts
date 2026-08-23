@@ -3,6 +3,6 @@ export interface UpdateBudgetRequestDTO {
     amount: number;
     startDate: string;
     endDate: string;
-    categoryId: number;
+    categoryId: string;
     isActive: boolean;
 }
