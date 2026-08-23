@@ -9,6 +9,7 @@ export interface BudgetTableProps {
 
 const COLUMNS = [
     { key: 'categoryName', label: 'Category' },
+    { key: 'description', label: 'Budget Description' },
     { key: 'startDate', label: 'Start Date' },
     { key: 'endDate', label: 'End Date' },
     { key: 'amount', label: 'Amount' },

@@ -10,6 +10,7 @@ interface AddBudgetModalProps {
 }
 
 const AddBudgetModal = ({onClose}: AddBudgetModalProps) => {
+  const [description, setDescription] = useState("");
   const [amount, setAmount] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -35,6 +36,7 @@ const AddBudgetModal = ({onClose}: AddBudgetModalProps) => {
     }
 
     mutate({
+      description: description,
       amount: amount,
       startDate: startDate,
       endDate: endDate,
@@ -57,6 +59,17 @@ const AddBudgetModal = ({onClose}: AddBudgetModalProps) => {
   return (
     <form onSubmit={handleAdd}>
       <div className="flex flex-col gap-2 p-4">
+        <div>
+          <label htmlFor="description" className="text-black pr-2">Description</label>
+          <input
+            id="description"
+            type="text"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Description"
+            className="border border-gray-300 p-1 rounded mb-2 text-black"
+          />
+        </div>
         <div>
           <label htmlFor="amount" className="text-black pr-2">Amount</label>
           <input

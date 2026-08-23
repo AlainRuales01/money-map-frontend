@@ -4,10 +4,11 @@ import { getApiResponseMessageError } from "@/utils/moneyMapApiUtil";
 import { useEffect, useState } from "react";
 
 interface FilterCategoriesProps {
-    onSearch: (startDate: string, endDate: string, categoryId: string, onlyActive: boolean) => void;
+    onSearch: (description: string, startDate: string, endDate: string, categoryId: string, onlyActive: boolean) => void;
 }
 
 const FilterBudgets = ({onSearch}: FilterCategoriesProps) => {
+    const [description, setDescription] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [categoryId, setCategoryId] = useState('');
@@ -37,6 +38,12 @@ const FilterBudgets = ({onSearch}: FilterCategoriesProps) => {
                     className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-60"
                     onChange={(e) => setEndDate(e.target.value)}
                 />
+                <input 
+                    type = "text" 
+                    placeholder="Budget description..." 
+                    className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-60"
+                    onChange={(e) => setDescription(e.target.value)}
+                />
                 <select 
                     className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-70" 
                     onChange={(e) => setCategoryId(e.target.value)}>
@@ -65,7 +72,7 @@ const FilterBudgets = ({onSearch}: FilterCategoriesProps) => {
                     onClick={
                         (e) => {
                             e.preventDefault();
-                            onSearch(startDate, endDate, categoryId, onlyActive);
+                            onSearch(description, startDate, endDate, categoryId, onlyActive);
                         }
                     }
                 >

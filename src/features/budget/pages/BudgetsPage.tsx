@@ -9,6 +9,7 @@ import ToolbarBudget from '../components/ToolbarBudget';
 
 const BudgetsPage = () => {
 
+    const [description, setDescription] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [categoryId, setCategoryId] = useState('');
@@ -16,7 +17,7 @@ const BudgetsPage = () => {
 
     const { showAlert } = useAlert();
 
-    const { data: budgets = [], isError, error } = useBudgetsBasicInfoQuery({ startDate, endDate, categoryId, onlyActive });
+    const { data: budgets = [], isError, error } = useBudgetsBasicInfoQuery({description, startDate, endDate, categoryId, onlyActive });
 
     useEffect(() => {
         if (isError) {
@@ -25,7 +26,8 @@ const BudgetsPage = () => {
         }
     }, [isError, error, showAlert]);
 
-    const handleSearch = (startDate: string, endDate: string, categoryId: string, onlyActive: boolean) => {
+    const handleSearch = (description: string, startDate: string, endDate: string, categoryId: string, onlyActive: boolean) => {
+        setDescription(description);
         setStartDate(startDate);
         setEndDate(endDate);
         setCategoryId(categoryId);

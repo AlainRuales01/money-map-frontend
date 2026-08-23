@@ -6,10 +6,10 @@ import type { AddBudgetRequestDTO, GetBudgetBasicInfoRequestDTO, GetBudgetUpdate
 
 const BUDGETS_KEY = 'budgets' as const;
 
-export const useBudgetsBasicInfoQuery = ({ startDate, endDate, categoryId, onlyActive }: GetBudgetBasicInfoRequestDTO) => {
+export const useBudgetsBasicInfoQuery = ({description, startDate, endDate, categoryId, onlyActive }: GetBudgetBasicInfoRequestDTO) => {
     return useQuery({
-        queryKey: [BUDGETS_KEY, 'basicInfo', { startDate, endDate, categoryId, onlyActive }],
-        queryFn: () => budgetService.getBudgetBasicInfo({ startDate, endDate, categoryId, onlyActive })
+        queryKey: [BUDGETS_KEY, 'basicInfo', {description, startDate, endDate, categoryId, onlyActive }],
+        queryFn: () => budgetService.getBudgetBasicInfo({ description, startDate, endDate, categoryId, onlyActive })
     });
 }
 

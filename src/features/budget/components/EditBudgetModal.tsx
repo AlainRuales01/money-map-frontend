@@ -36,6 +36,7 @@ const EditBudgetModal = ({id, onClose}: EditBudgetModalProps) => {
     return (
         <EditBudgetForm
             id={id}
+            description={budgetData.description}
             amount={budgetData.amount}
             startDate={budgetData.startDate}
             endDate={budgetData.endDate}

@@ -2,7 +2,7 @@ import AddBudgetButton from "./AddBudgetButton";
 import FilterBudgets from "./FilterBudgets";
 
 interface ToolbarBudgetProps {
-    onSearch: (startDate: string, endDate: string, categoryId: string, onlyActive: boolean) => void;
+    onSearch: ( description: string, startDate: string, endDate: string, categoryId: string, onlyActive: boolean) => void;
 }
 
 const ToolbarBudget = ({onSearch}: ToolbarBudgetProps) => {

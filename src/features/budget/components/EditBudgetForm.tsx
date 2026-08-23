@@ -6,6 +6,7 @@ import { useCategoriesDropDownOptionsQuery } from '@/features/category/hooks/use
 
 interface EditBudgetFormProps {
     id: string;
+    description: string;
     amount: number;
     startDate: string;
     endDate: string;
@@ -14,10 +15,12 @@ interface EditBudgetFormProps {
     onClose: () => void;
 }
 
-const EditBudgetForm = ({id, amount, startDate, endDate, categoryId, isActive, onClose}: EditBudgetFormProps) => {
-
+const EditBudgetForm = ({id, description: description, amount, startDate, endDate, categoryId, isActive, onClose}: EditBudgetFormProps) => {
+    
     const [budgetId] = useState(id || "");
+    
     const [budgetAmount, setBudgetAmount] = useState(amount || 0);
+    const [budgetDescription, setBudgetDescription] = useState(description || "");
     const [budgetStartDate, setBudgetStartDate] = useState(startDate || "");
     const [budgetEndDate, setBudgetEndDate] = useState(endDate || "");
     const [budgetCategoryId, setBudgetCategoryId] = useState(categoryId || "");
@@ -45,6 +48,7 @@ const EditBudgetForm = ({id, amount, startDate, endDate, categoryId, isActive, o
         mutate(
             {
                 id: budgetId,
+                description: budgetDescription,
                 amount: budgetAmount,
                 startDate: budgetStartDate,
                 endDate: budgetEndDate,
@@ -69,6 +73,17 @@ const EditBudgetForm = ({id, amount, startDate, endDate, categoryId, isActive, o
     return (
         <form onSubmit={handleAdd}>
             <div className="flex flex-col gap-2 p-4">
+                <div>
+                    <label htmlFor="description" className="text-black pr-2">Description</label>
+                    <input
+                    id="description"
+                    type="text"
+                    value={budgetDescription}
+                    onChange={(e) => setBudgetDescription(e.target.value)}
+                    placeholder="Description"
+                    className="border border-gray-300 p-1 rounded mb-2 text-black"
+                    />
+                </div>
                 <div>
                     <label htmlFor="amount" className="text-black pr-2">Amount</label>
                     <input
