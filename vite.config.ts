@@ -13,7 +13,9 @@ export default defineConfig({
       '@featuresCategoryType': path.resolve(__dirname, './src/features/category-type'),
       '@featuresCategory': path.resolve(__dirname, './src/features/category'),
       '@featuresFinancialResource': path.resolve(__dirname, './src/features/financial-resource'),
-      '@featuresBudget': path.resolve(__dirname, './src/features/budget')
+      '@featuresBudget': path.resolve(__dirname, './src/features/budget'),
+      '@featuresFinancialTransaction': path.resolve(__dirname, './src/features/financial-transaction')
+
     },
   }
 })
