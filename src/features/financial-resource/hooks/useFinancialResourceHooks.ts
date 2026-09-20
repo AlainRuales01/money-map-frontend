@@ -59,3 +59,10 @@ export const useUpdateFinancialResourceMutation = () => {
         }
     });
 }
+
+export const useFinancialResourcesDropDownOptionsQuery = () => {
+    return useQuery({
+        queryKey: [FINANCIAL_RESOURCES_KEY, 'dropDownOptions'],
+        queryFn: () => financialResourceService.getFinancialResourceDropDownOptions()
+    });
+}
