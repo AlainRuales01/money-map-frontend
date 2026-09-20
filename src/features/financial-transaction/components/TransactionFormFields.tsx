@@ -1,14 +1,20 @@
+import { useMemo } from "react";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
+import type { CategoryDropdownOptionDTO } from "@/types/services/category";
+import type { CategoryTypeDropdownOptionDTO } from "@/types/services/category-type";
 
+export const TRANSFER_CATEGORY_TYPE_CODE = "TRANSFER";
 
 interface TransactionFormFieldsProps {
   description: string;
   date: string;
   amount: number;
+  categoryTypeId?: string;
   categoryId: string;
   financialResourceId: string;
   destinationFinancialResourceId: string;
-  categories: DropdownOptionDTO[];
+  categoryTypes?: CategoryTypeDropdownOptionDTO[];
+  categories: (CategoryDropdownOptionDTO | DropdownOptionDTO)[];
   financialResources: DropdownOptionDTO[];
   onChange: (field: string, value: string | number) => void;
 }
@@ -39,6 +45,34 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
       </select>
     </div>
   );
+
+  const selectedCategoryType = props.categoryTypes?.find(
+    (ct) => ct.id === props.categoryTypeId,
+  );
+
+  const isTransferType =
+    selectedCategoryType?.code?.toUpperCase() === TRANSFER_CATEGORY_TYPE_CODE;
+
+    
+  const showDestinationResource =
+    props.categoryTypes && props.categoryTypes.length > 0
+      ? isTransferType
+      : true;
+
+  const availableCategories = useMemo(() => {
+    if (!props.categoryTypeId) {
+      return props.categoryTypes && props.categoryTypes.length > 0
+        ? []
+        : props.categories;
+    }
+
+    return props.categories.filter((category) => {
+      if ("categoryTypeId" in category && category.categoryTypeId) {
+        return category.categoryTypeId === props.categoryTypeId;
+      }
+      return true;
+    });
+  }, [props.categories, props.categoryTypeId, props.categoryTypes]);
 
   return (
     <>
@@ -82,19 +116,45 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
           className="border border-gray-300 p-1 rounded mb-2 text-black"
         />
       </div>
-      {select("categoryId", props.categoryId, "Category", props.categories)}
+      {props.categoryTypes && (
+        <div>
+          <label htmlFor="categoryTypeId" className="text-black pr-2">
+            Category Type
+          </label>
+          <select
+            id="categoryTypeId"
+            value={props.categoryTypeId || ""}
+            onChange={(event) => {
+              const newCategoryTypeId = event.target.value;
+              props.onChange("categoryTypeId", newCategoryTypeId);
+              props.onChange("categoryId", "");
+              props.onChange("destinationFinancialResourceId", "");
+            }}
+            className="border border-gray-300 p-1 rounded mb-2 text-black"
+          >
+            <option value="">Select Category Type</option>
+            {props.categoryTypes.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+      {select("categoryId", props.categoryId, "Category", availableCategories)}
       {select(
         "financialResourceId",
         props.financialResourceId,
-        "Source resource",
+        "Source Financial resource",
         props.financialResources,
       )}
-      {select(
-        "destinationFinancialResourceId",
-        props.destinationFinancialResourceId,
-        "Destination resource",
-        props.financialResources,
-      )}
+      {showDestinationResource &&
+        select(
+          "destinationFinancialResourceId",
+          props.destinationFinancialResourceId,
+          "Destination Financial resource",
+          props.financialResources,
+        )}
     </>
   );
 };

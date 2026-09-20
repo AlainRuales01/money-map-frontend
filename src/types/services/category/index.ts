@@ -6,3 +6,4 @@ export * from './request/UpdateCategoryRequestDTO';
 // export responses
 export * from './response/CategoryBasicInfoResponseDTO';
 export * from './response/CategoryUpdateInfoResponseDTO';
+export * from './response/CategoryDropdownOptionDTO';

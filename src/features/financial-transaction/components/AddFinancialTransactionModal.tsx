@@ -5,22 +5,45 @@ import TransactionFormFields from "./TransactionFormFields";
 import { getApiResponseMessageError } from "@/utils/moneyMapApiUtil";
 import { useCategoriesDropDownOptionsQuery } from "@/features/category/hooks/useCategoryHooks";
 import { useFinancialResourcesDropDownOptionsQuery } from "@/features/financial-resource/hooks/useFinancialResourceHooks";
+import { useCategoryTypesDropDownOptionsQuery } from "@/features/category-type/hooks/useCategoryTypeHooks";
 
 const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
   const [form, setForm] = useState({
     description: "",
     date: "",
     amount: 0,
+    categoryTypeId: "",
     categoryId: "",
     financialResourceId: "",
     destinationFinancialResourceId: "",
   });
   const { showAlert } = useAlert();
   const { mutate } = useAddFinancialTransactionMutation();
-  
 
-  const { data: categories = [], isError: isErrorCategories, error: errorCategories } = useCategoriesDropDownOptionsQuery();
-  const { data: financialResources = [], isError: isErrorFinancialResources, error: errorFinancialResources } = useFinancialResourcesDropDownOptionsQuery();
+  const {
+    data: categoryTypes = [],
+    isError: isErrorCategoryTypes,
+    error: errorCategoryTypes,
+  } = useCategoryTypesDropDownOptionsQuery();
+
+  const {
+    data: categories = [],
+    isError: isErrorCategories,
+    error: errorCategories,
+  } = useCategoriesDropDownOptionsQuery();
+
+  const {
+    data: financialResources = [],
+    isError: isErrorFinancialResources,
+    error: errorFinancialResources,
+  } = useFinancialResourcesDropDownOptionsQuery();
+
+  useEffect(() => {
+    if (isErrorCategoryTypes) {
+      const errorMessage = getApiResponseMessageError(errorCategoryTypes);
+      showAlert(errorMessage, "error");
+    }
+  }, [isErrorCategoryTypes, errorCategoryTypes, showAlert]);
 
   useEffect(() => {
     if (isErrorCategories) {
@@ -41,16 +64,39 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
   const submit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
+      !form.description ||
       !form.date ||
       !form.amount ||
       !form.categoryId ||
       !form.financialResourceId
     ) {
       showAlert(
-        "Date, amount, category, and source resource are required",
+        "Description, Date, amount, category, and source resource are required",
         "info",
       );
       return;
+    }
+
+    const selectedCategoryType = categoryTypes.find(
+      (ct) => ct.id === form.categoryTypeId,
+    );
+    const isTransfer = selectedCategoryType?.code?.toUpperCase() === "TRANSFER";
+    if (isTransfer) {
+      if (!form.destinationFinancialResourceId) {
+        showAlert(
+          "Destination Financial resource is required for transfer transactions",
+          "info",
+        );
+        return;
+      }
+
+      if (form.financialResourceId === form.destinationFinancialResourceId) {
+        showAlert(
+          "Destination Financial resource cannot be the same as the Source Financial resource",
+          "info",
+        );
+        return;
+      }
     }
 
     if (form.amount <= 0) {
@@ -60,8 +106,10 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
     mutate(
       {
         ...form,
-        destinationFinancialResource:
-          form.destinationFinancialResourceId || undefined,
+        destinationFinancialResourceId:
+          isTransfer && form.destinationFinancialResourceId
+            ? form.destinationFinancialResourceId
+            : undefined,
       },
       { onSuccess: onClose },
     );
@@ -71,6 +119,7 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
       <div className="flex flex-col gap-2 p-4">
         <TransactionFormFields
           {...form}
+          categoryTypes={categoryTypes}
           categories={categories}
           financialResources={financialResources}
           onChange={update}

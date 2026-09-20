@@ -4,5 +4,5 @@ export interface AddFinancialTransactionRequestDTO {
     amount: number,
     categoryId: string,
     financialResourceId: string,
-    destinationFinancialResource?: string
+    destinationFinancialResourceId?: string
 }

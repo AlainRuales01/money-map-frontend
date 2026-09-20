@@ -3,6 +3,7 @@ export interface FinancialTransactionUpdateInfoResponseDTO {
     description : string,
     date : string,
     amount : number,
+    categoryTypeId : string,
     categoryId : string,
     financialResourceId : string,
     destinationFinancialResourceId : string

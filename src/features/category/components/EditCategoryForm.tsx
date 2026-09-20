@@ -1,6 +1,6 @@
 import { useUpdateCategoryMutation } from '../hooks/useCategoryHooks';
 import { useAlert } from '@/components/context/AlertContext';
-import { useCategoryTypesDropDownOptionsQuery } from "@featuresCategoryType/hooks/useCategoryTypeHooks";
+import { useCategoryTypesAddableDropDownOptionsQuery } from "@featuresCategoryType/hooks/useCategoryTypeHooks";
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import { useEffect, useState } from 'react';
 
@@ -21,7 +21,7 @@ const EditCategoryForm = ({id, name, description, typeId, isActive, onClose}: Ed
     const [categoryTypeId, setCategoryTypeId] = useState(typeId || "");
     const [categoryIsActive, setCategoryIsActive] = useState(isActive || false);
 
-    const { data: categoryTypes = [], isError, error } = useCategoryTypesDropDownOptionsQuery();
+    const { data: categoryTypes = [], isError, error } = useCategoryTypesAddableDropDownOptionsQuery();
     
     const { mutate } = useUpdateCategoryMutation();
     const { showAlert } = useAlert();

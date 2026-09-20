@@ -3,7 +3,7 @@ import { useAlert } from '@/components/context/AlertContext';
 import { useEffect, useState } from "react";
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import { useAddCategoryMutation } from '../hooks/useCategoryHooks';
-import { useCategoryTypesDropDownOptionsQuery } from "@/features/category-type/hooks/useCategoryTypeHooks";
+import { useCategoryTypesAddableDropDownOptionsQuery } from "@/features/category-type/hooks/useCategoryTypeHooks";
 
 interface AddCategoryModalProps {
     onClose: () => void;
@@ -15,7 +15,7 @@ const AddCategoryModal = ({onClose}: AddCategoryModalProps) => {
   const [categoryTypeId, setCategoryTypeId] = useState("");
   const { showAlert } = useAlert();
 
-  const { data: categoryTypes = [], isError, error } = useCategoryTypesDropDownOptionsQuery();
+  const { data: categoryTypes = [], isError, error } = useCategoryTypesAddableDropDownOptionsQuery();
 
   useEffect(() => {
     if (isError) {
