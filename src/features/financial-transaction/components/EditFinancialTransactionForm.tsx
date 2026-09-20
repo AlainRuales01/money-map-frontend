@@ -60,6 +60,12 @@ const EditFinancialTransactionForm = ({
       );
       return;
     }
+
+    if (form.amount <= 0) {
+      showAlert("Amount must be greater than 0", "info");
+      return;
+    }
+
     mutate(
       {
         id: transaction.id,
