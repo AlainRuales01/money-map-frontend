@@ -28,6 +28,9 @@ export const Navbar = () => {
         <li>
           <Link to="/financial-resources" style={{ color: '#fff', textDecoration: 'none' }}>Financial Resources</Link>
         </li>
+        <li>
+          <Link to="/financial-transactions" style={{ color: '#fff', textDecoration: 'none' }}>Transactions</Link>
+        </li>
         {/* <li>
           <Link to="/budgets" style={{ color: '#fff', textDecoration: 'none' }}>Budgets</Link>
         </li> */}
