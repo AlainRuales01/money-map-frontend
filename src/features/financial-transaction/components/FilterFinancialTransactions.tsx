@@ -15,6 +15,7 @@ interface FilterFinancialTransactionsProps {
     categoryId: string,
     financialResourceId: string,
     destinationFinancialResourceId?: string,
+    categoryTypeId?: string,
   ) => void;
 }
 
@@ -98,6 +99,7 @@ const FilterFinancialTransactions = ({
           categoryId,
           financialResourceId,
           isTransfer && destinationFinancialResourceId ? destinationFinancialResourceId : undefined,
+          categoryTypeId || undefined,
         );
       }}
     >

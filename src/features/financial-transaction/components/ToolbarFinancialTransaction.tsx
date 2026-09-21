@@ -9,6 +9,7 @@ interface ToolbarFinancialTransactionProps {
     categoryId: string,
     financialResourceId: string,
     destinationFinancialResourceId?: string,
+    categoryTypeId?: string,
   ) => void;
 }
 

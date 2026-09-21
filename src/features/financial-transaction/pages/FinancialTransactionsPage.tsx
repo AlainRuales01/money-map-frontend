@@ -15,6 +15,7 @@ const FinancialTransactionsPage = () => {
     categoryId: "",
     financialResourceId: "",
     destinationFinancialResourceId: "",
+    categoryTypeId: "",
   });
   
   const { showAlert } = useAlert();
@@ -36,6 +37,7 @@ const FinancialTransactionsPage = () => {
           categoryId,
           financialResourceId,
           destinationFinancialResourceId,
+          categoryTypeId,
         ) =>
           setFilters({
             description: description || undefined,
@@ -43,8 +45,8 @@ const FinancialTransactionsPage = () => {
             endDate: endDate || undefined,
             categoryId: categoryId || undefined,
             financialResourceId: financialResourceId || undefined,
-            destinationFinancialResourceId:
-              destinationFinancialResourceId || undefined,
+            destinationFinancialResourceId: destinationFinancialResourceId || undefined,
+            categoryTypeId: categoryTypeId || undefined,
           })
         }
       />
