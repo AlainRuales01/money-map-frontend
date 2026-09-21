@@ -83,6 +83,7 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
         <input
           id="description"
           type="text"
+          placeholder="Transaction description"
           value={props.description}
           onChange={(event) =>
             props.onChange("description", event.target.value)
