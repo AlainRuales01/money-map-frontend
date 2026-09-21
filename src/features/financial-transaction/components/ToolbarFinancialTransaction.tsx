@@ -8,6 +8,7 @@ interface ToolbarFinancialTransactionProps {
     endDate: string,
     categoryId: string,
     financialResourceId: string,
+    destinationFinancialResourceId?: string,
   ) => void;
 }
 

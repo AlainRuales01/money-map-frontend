@@ -5,13 +5,16 @@ import { useFinancialTransactionsBasicInfoQuery } from "../hooks/useFinancialTra
 import FinancialTransactionTable from "../components/FinancialTransactionTable";
 import ToolbarFinancialTransaction from "../components/ToolbarFinancialTransaction";
 
+import type { GetFinancialTransactionBasicInfoRequestDTO } from "@/types/services/financial-transaction";
+
 const FinancialTransactionsPage = () => {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<GetFinancialTransactionBasicInfoRequestDTO>({
     description: "",
     startDate: "",
     endDate: "",
     categoryId: "",
     financialResourceId: "",
+    destinationFinancialResourceId: "",
   });
   
   const { showAlert } = useAlert();
@@ -32,13 +35,16 @@ const FinancialTransactionsPage = () => {
           endDate,
           categoryId,
           financialResourceId,
+          destinationFinancialResourceId,
         ) =>
           setFilters({
-            description,
-            startDate,
-            endDate,
-            categoryId,
-            financialResourceId,
+            description: description || undefined,
+            startDate: startDate || undefined,
+            endDate: endDate || undefined,
+            categoryId: categoryId || undefined,
+            financialResourceId: financialResourceId || undefined,
+            destinationFinancialResourceId:
+              destinationFinancialResourceId || undefined,
           })
         }
       />

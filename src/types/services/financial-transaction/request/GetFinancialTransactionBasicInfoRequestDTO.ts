@@ -3,5 +3,6 @@ export interface GetFinancialTransactionBasicInfoRequestDTO {
     startDate? : string,
     endDate? : string, 
     categoryId? : string,
-    financialResourceId? : string
+    financialResourceId? : string,
+    destinationFinancialResourceId? : string
 }
