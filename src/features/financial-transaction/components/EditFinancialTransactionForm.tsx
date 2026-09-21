@@ -20,7 +20,7 @@ const EditFinancialTransactionForm = ({
     date: transaction.date,
     amount: transaction.amount,
     categoryId: transaction.categoryId,
-    categoryTypeId: transaction.categoryTypeId,
+    categoryTypeId: transaction.categoryTypeId || "",
     financialResourceId: transaction.financialResourceId,
     destinationFinancialResourceId:
       transaction.destinationFinancialResourceId || "",
