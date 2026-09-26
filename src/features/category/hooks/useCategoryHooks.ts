@@ -6,7 +6,7 @@ import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategory
 import type { UpdateCategoryRequestDTO } from '@/types/services/category/request/UpdateCategoryRequestDTO';
 import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const CATEGORIES_KEY = MONEY_MAP_KEY_CONSTANTS.CATEGORY;
+const CATEGORIES_KEY = MONEY_MAP_KEY_CONSTANTS.CATEGORIES;
 
 export const useCategoriesBasicInfoQuery = ({ categoryName, categoryTypeId, onlyActive }: GetCategoryBasicInfoRequestDTO) => {
     return useQuery({
@@ -30,7 +30,7 @@ export const useAddCategoryMutation = () => {
         mutationKey: [CATEGORIES_KEY, 'addCategory'],
         mutationFn: (category: AddCategoryRequestDTO) => categoryService.addCategory(category),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY, 'basicInfo'] });
+            queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY] });
             showAlert("Category added successfully", "success");
         },
         onError: (error: unknown) => {
@@ -47,9 +47,8 @@ export const useUpdateCategoryMutation = () => {
     return useMutation({
         mutationKey: [CATEGORIES_KEY, 'updateCategory'],
         mutationFn: (category: UpdateCategoryRequestDTO) => categoryService.updateCategory(category),
-        onSuccess: (_data, variables) => {
-            queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY, 'basicInfo'] });
-            queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY, 'updateInfo', { id: variables.id }], exact: true });
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [CATEGORIES_KEY] });
             showAlert("Category updated successfully", "success");
         },
         onError: (error: unknown) => {

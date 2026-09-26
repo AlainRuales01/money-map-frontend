@@ -5,7 +5,7 @@ import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import type { AddBudgetRequestDTO, GetBudgetBasicInfoRequestDTO, GetBudgetUpdateInfoRequestDTO, UpdateBudgetRequestDTO } from '@/types/services/budget';
 import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const BUDGETS_KEY = MONEY_MAP_KEY_CONSTANTS.BUDGET;
+const BUDGETS_KEY = MONEY_MAP_KEY_CONSTANTS.BUDGETS;
 
 export const useBudgetsBasicInfoQuery = ({description, startDate, endDate, categoryId, onlyActive }: GetBudgetBasicInfoRequestDTO) => {
     return useQuery({
@@ -46,9 +46,8 @@ export const useUpdateBudgetMutation = () => {
     return useMutation({
         mutationKey: [BUDGETS_KEY, 'updateBudget'],
         mutationFn: (budget: UpdateBudgetRequestDTO) => budgetService.updateBudget(budget),
-        onSuccess: (_data, variables) => {
-            queryClient.invalidateQueries({ queryKey: [BUDGETS_KEY, 'basicInfo'] });
-            queryClient.invalidateQueries({ queryKey: [BUDGETS_KEY, 'updateInfo', { id: variables.id }], exact: true });
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [BUDGETS_KEY] });
             showAlert("Budget updated successfully", "success");
         },
         onError: (error: unknown) => {

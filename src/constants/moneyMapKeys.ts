@@ -1,7 +1,7 @@
 export const MONEY_MAP_KEY_CONSTANTS = {
-  FINANCIAL_TRANSACTION: 'financialTransactions',
-  BUDGET: 'budgets',
-  CATEGORY: 'categories',
-  CATEGORY_TYPE: 'categoryTypes',
-  FINANCIAL_RESOURCE: 'financialResources',
+  FINANCIAL_TRANSACTIONS: 'financialTransactions',
+  BUDGETS: 'budgets',
+  CATEGORIES: 'categories',
+  CATEGORY_TYPES: 'categoryTypes',
+  FINANCIAL_RESOURCES: 'financialResources',
 } as const;

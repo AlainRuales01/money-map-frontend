@@ -6,7 +6,7 @@ import type { GetFinancialResourceBasicInfoRequestDTO } from '@/types/services/f
 import type { AddFinancialResourceRequestDTO, GetFinancialResourceUpdateInfoRequestDTO, UpdateFinancialResourceRequestDTO } from '@/types/services/financial-resource';
 import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const FINANCIAL_RESOURCES_KEY = MONEY_MAP_KEY_CONSTANTS.FINANCIAL_RESOURCE;
+const FINANCIAL_RESOURCES_KEY = MONEY_MAP_KEY_CONSTANTS.FINANCIAL_RESOURCES;
 
 // SE DEBE CAMBIAR PARA QUE SIEMPRE SE INVALIDE A BUSCAR PORQUE EL BALANCE PUEDE CAMBIAR A CADA RATO
 export const useFinancialResourcesBasicInfoQuery = ({ financialResourceName, onlyActive }: GetFinancialResourceBasicInfoRequestDTO) => {
@@ -48,9 +48,8 @@ export const useUpdateFinancialResourceMutation = () => {
     return useMutation({
         mutationKey: [FINANCIAL_RESOURCES_KEY, 'updateFinancialResource'],
         mutationFn: (financialResource: UpdateFinancialResourceRequestDTO) => financialResourceService.updateFinancialResource(financialResource),
-        onSuccess: (_data, variables) => {
-            queryClient.invalidateQueries({ queryKey: [FINANCIAL_RESOURCES_KEY, 'basicInfo'] });
-            queryClient.invalidateQueries({ queryKey: [FINANCIAL_RESOURCES_KEY, 'updateInfo', { id: variables.id }], exact: true });
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: [FINANCIAL_RESOURCES_KEY] });
             showAlert("Financial resource updated successfully", "success");
         },
         onError: (error: unknown) => {

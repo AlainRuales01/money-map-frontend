@@ -10,7 +10,7 @@ import type {
 import { financialTransactionService } from '../services/financialTransactionService';
 import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const TRANSACTIONS_KEY = MONEY_MAP_KEY_CONSTANTS.FINANCIAL_TRANSACTION;
+const TRANSACTIONS_KEY = MONEY_MAP_KEY_CONSTANTS.FINANCIAL_TRANSACTIONS;
 export const useFinancialTransactionsBasicInfoQuery = (request: GetFinancialTransactionBasicInfoRequestDTO) =>
   useQuery({
     queryKey: [TRANSACTIONS_KEY, 'basicInfo', request],
@@ -47,9 +47,9 @@ export const useUpdateFinancialTransactionMutation = () => {
     mutationKey: [TRANSACTIONS_KEY, 'update'],
     mutationFn: (transaction: UpdateFinancialTransactionRequestDTO) =>
       financialTransactionService.updateFinancialTransaction(transaction),
-    onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({ queryKey: [TRANSACTIONS_KEY, 'basicInfo'] });
-      queryClient.invalidateQueries({ queryKey: [TRANSACTIONS_KEY, 'updateInfo', { id: variables.id }], exact: true });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [TRANSACTIONS_KEY] });
+      queryClient.invalidateQueries({ queryKey: [MONEY_MAP_KEY_CONSTANTS.FINANCIAL_RESOURCES] });
       showAlert('Financial transaction updated successfully', 'success');
     },
     onError: (error: unknown) => showAlert(getApiResponseMessageError(error), 'error'),
