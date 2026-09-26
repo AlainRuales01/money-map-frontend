@@ -4,9 +4,9 @@ import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import { financialResourceService } from '@featuresFinancialResource/services/financialResourceService';
 import type { GetFinancialResourceBasicInfoRequestDTO } from '@/types/services/financial-resource/request/GetFinancialResourceBasicInfoRequestDTO';
 import type { AddFinancialResourceRequestDTO, GetFinancialResourceUpdateInfoRequestDTO, UpdateFinancialResourceRequestDTO } from '@/types/services/financial-resource';
+import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-
-const FINANCIAL_RESOURCES_KEY = 'financialResources' as const;
+const FINANCIAL_RESOURCES_KEY = MONEY_MAP_KEY_CONSTANTS.FINANCIAL_RESOURCE;
 
 // SE DEBE CAMBIAR PARA QUE SIEMPRE SE INVALIDE A BUSCAR PORQUE EL BALANCE PUEDE CAMBIAR A CADA RATO
 export const useFinancialResourcesBasicInfoQuery = ({ financialResourceName, onlyActive }: GetFinancialResourceBasicInfoRequestDTO) => {

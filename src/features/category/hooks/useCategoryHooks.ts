@@ -4,8 +4,9 @@ import { useAlert } from '@/components/context/AlertContext';
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryUpdateInfoRequestDTO } from '@/types/services/category';
 import type { UpdateCategoryRequestDTO } from '@/types/services/category/request/UpdateCategoryRequestDTO';
+import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const CATEGORIES_KEY = 'categories' as const;
+const CATEGORIES_KEY = MONEY_MAP_KEY_CONSTANTS.CATEGORY;
 
 export const useCategoriesBasicInfoQuery = ({ categoryName, categoryTypeId, onlyActive }: GetCategoryBasicInfoRequestDTO) => {
     return useQuery({

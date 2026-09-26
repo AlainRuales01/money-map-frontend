@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { categoryTypeService } from '../services/categoryTypeService';
+import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const CATEGORY_TYPES_KEY = 'categoryTypes' as const;
+const CATEGORY_TYPES_KEY = MONEY_MAP_KEY_CONSTANTS.CATEGORY_TYPE;
 
 export const useCategoryTypesAddableDropDownOptionsQuery = () => {
     return useQuery({

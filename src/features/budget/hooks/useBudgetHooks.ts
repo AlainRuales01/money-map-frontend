@@ -3,8 +3,9 @@ import { budgetService } from '@featuresBudget/services/budgetService';
 import { useAlert } from '@/components/context/AlertContext';
 import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import type { AddBudgetRequestDTO, GetBudgetBasicInfoRequestDTO, GetBudgetUpdateInfoRequestDTO, UpdateBudgetRequestDTO } from '@/types/services/budget';
+import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const BUDGETS_KEY = 'budgets' as const;
+const BUDGETS_KEY = MONEY_MAP_KEY_CONSTANTS.BUDGET;
 
 export const useBudgetsBasicInfoQuery = ({description, startDate, endDate, categoryId, onlyActive }: GetBudgetBasicInfoRequestDTO) => {
     return useQuery({

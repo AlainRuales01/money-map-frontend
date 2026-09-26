@@ -6,4 +6,4 @@ export const MONEY_MAP_API_EXECUTION_CONSTANTS = {
     UNAUTHORIZED : 5,
     NO_RESULTS : 6,
     UNHANDLED_ERROR : 99
-}
+} as const;

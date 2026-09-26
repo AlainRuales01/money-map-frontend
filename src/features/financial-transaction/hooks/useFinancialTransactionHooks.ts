@@ -8,9 +8,9 @@ import type {
   UpdateFinancialTransactionRequestDTO,
 } from '@/types/services/financial-transaction';
 import { financialTransactionService } from '../services/financialTransactionService';
+import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
 
-const TRANSACTIONS_KEY = 'financialTransactions' as const;
-
+const TRANSACTIONS_KEY = MONEY_MAP_KEY_CONSTANTS.FINANCIAL_TRANSACTION;
 export const useFinancialTransactionsBasicInfoQuery = (request: GetFinancialTransactionBasicInfoRequestDTO) =>
   useQuery({
     queryKey: [TRANSACTIONS_KEY, 'basicInfo', request],
