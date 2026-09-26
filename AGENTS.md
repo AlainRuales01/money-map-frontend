@@ -2,6 +2,7 @@
 
 ## 1. File Reading & Inspection
 - When you try to execute only read actions, you dont need to ask user permission. Yo can read freely exclusively within the `money-map-frontend` workspace root.
+- You can run git commands to inspect the repository state, preview changes or previous files versions just to read, but you must not modify any files or commit changes without explicit user confirmation.
 
 ## 2. Modification & Execution Policy
 - **User Confirmation Required**:
