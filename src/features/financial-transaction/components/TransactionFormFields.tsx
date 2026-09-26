@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
 import type { CategoryDropdownOptionDTO } from "@/types/services/category";
 import type { CategoryTypeDropdownOptionDTO } from "@/types/services/category-type";
@@ -25,6 +25,7 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
     value: string,
     label: string,
     options: DropdownOptionDTO[],
+    hideEmptyOption = false,
   ) => (
     <div>
       <label htmlFor={id} className="text-black pr-2">
@@ -36,7 +37,7 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
         onChange={(event) => props.onChange(id, event.target.value)}
         className="border border-gray-300 p-1 rounded mb-2 text-black"
       >
-        <option value="">Select {label}</option>
+        {!hideEmptyOption && <option value="">Select {label}</option>}
         {options.map((option) => (
           <option key={option.id} value={option.id}>
             {option.name}
@@ -73,6 +74,17 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
       return true;
     });
   }, [props.categories, props.categoryTypeId, props.categoryTypes]);
+
+  const { categoryId, onChange } = props;
+
+  useEffect(() => {
+    if (availableCategories.length === 1) {
+      const singleCategoryId = availableCategories[0].id;
+      if (categoryId !== singleCategoryId) {
+        onChange("categoryId", singleCategoryId);
+      }
+    }
+  }, [availableCategories, categoryId, onChange]);
 
   return (
     <>
@@ -128,7 +140,22 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
             onChange={(event) => {
               const newCategoryTypeId = event.target.value;
               props.onChange("categoryTypeId", newCategoryTypeId);
-              props.onChange("categoryId", "");
+
+              const filtered = newCategoryTypeId
+                ? props.categories.filter((category) => {
+                    if ("categoryTypeId" in category && category.categoryTypeId) {
+                      return category.categoryTypeId === newCategoryTypeId;
+                    }
+                    return true;
+                  })
+                : [];
+
+              if (filtered.length === 1) {
+                props.onChange("categoryId", filtered[0].id);
+              } else {
+                props.onChange("categoryId", "");
+              }
+
               props.onChange("destinationFinancialResourceId", "");
             }}
             className="border border-gray-300 p-1 rounded mb-2 text-black"
@@ -142,7 +169,13 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
           </select>
         </div>
       )}
-      {select("categoryId", props.categoryId, "Category", availableCategories)}
+      {select(
+        "categoryId",
+        props.categoryId,
+        "Category",
+        availableCategories,
+        availableCategories.length === 1,
+      )}
       {select(
         "financialResourceId",
         props.financialResourceId,
