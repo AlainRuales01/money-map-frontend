@@ -2,6 +2,6 @@ export interface FinancialResourceBasicInfoResponseDTO {
     id: string;
     name: string;
     description: string;
-    amount : number;
+    balance : number;
     isActive : boolean;
 }
