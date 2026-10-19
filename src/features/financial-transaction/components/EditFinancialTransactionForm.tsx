@@ -7,6 +7,7 @@ import { getApiResponseMessageError } from "@/utils/moneyMapApiUtil";
 import { useCategoriesDropDownOptionsQuery } from "@/features/category/hooks/useCategoryHooks";
 import { useFinancialResourcesDropDownOptionsQuery } from "@/features/financial-resource/hooks/useFinancialResourceHooks";
 import { useCategoryTypesDropDownOptionsQuery } from "@/features/category-type/hooks/useCategoryTypeHooks";
+import { CategoryTypeCode } from "@/constants/categoryTypeCode";
 
 const EditFinancialTransactionForm = ({
   transaction,
@@ -89,7 +90,7 @@ const EditFinancialTransactionForm = ({
       (ct) => ct.id === form.categoryTypeId,
     );
     const isTransfer =
-      selectedCategoryType?.code?.toUpperCase() === "TRANSFER";
+      selectedCategoryType?.code?.toUpperCase() === CategoryTypeCode.TRANSFER;
 
     if (isTransfer) {
       if (!form.destinationFinancialResourceId) {

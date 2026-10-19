@@ -2,8 +2,7 @@ import { useEffect, useMemo } from "react";
 import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDTO";
 import type { CategoryDropdownOptionDTO } from "@/types/services/category";
 import type { CategoryTypeDropdownOptionDTO } from "@/types/services/category-type";
-
-export const TRANSFER_CATEGORY_TYPE_CODE = "TRANSFER";
+import { CategoryTypeCode } from "@/constants/categoryTypeCode";
 
 interface TransactionFormFieldsProps {
   description: string;
@@ -52,7 +51,7 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
   );
 
   const isTransferType =
-    selectedCategoryType?.code?.toUpperCase() === TRANSFER_CATEGORY_TYPE_CODE;
+    selectedCategoryType?.code?.toUpperCase() === CategoryTypeCode.TRANSFER;
 
     
   const showDestinationResource =

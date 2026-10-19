@@ -6,6 +6,7 @@ import { getApiResponseMessageError } from "@/utils/moneyMapApiUtil";
 import { useCategoriesDropDownOptionsQuery } from "@/features/category/hooks/useCategoryHooks";
 import { useFinancialResourcesDropDownOptionsQuery } from "@/features/financial-resource/hooks/useFinancialResourceHooks";
 import { useCategoryTypesDropDownOptionsQuery } from "@/features/category-type/hooks/useCategoryTypeHooks";
+import { CategoryTypeCode } from "@/constants/categoryTypeCode";
 
 const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
   const [form, setForm] = useState({
@@ -80,7 +81,8 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
     const selectedCategoryType = categoryTypes.find(
       (ct) => ct.id === form.categoryTypeId,
     );
-    const isTransfer = selectedCategoryType?.code?.toUpperCase() === "TRANSFER";
+    const isTransfer =
+      selectedCategoryType?.code?.toUpperCase() === CategoryTypeCode.TRANSFER;
     if (isTransfer) {
       if (!form.destinationFinancialResourceId) {
         showAlert(

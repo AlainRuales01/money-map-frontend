@@ -5,7 +5,7 @@ import { useAlert } from "@/components/context/AlertContext";
 import { useFinancialResourcesDropDownOptionsQuery } from "@/features/financial-resource/hooks/useFinancialResourceHooks";
 import { useCategoryTypesDropDownOptionsQuery } from "@/features/category-type/hooks/useCategoryTypeHooks";
 import type { CategoryDropdownOptionDTO } from "@/types/services/category";
-import { TRANSFER_CATEGORY_TYPE_CODE } from "./TransactionFormFields";
+import { CategoryTypeCode } from "@/constants/categoryTypeCode";
 
 interface FilterFinancialTransactionsProps {
   onSearch: (
@@ -76,7 +76,7 @@ const FilterFinancialTransactions = ({
 
   const selectedCategoryType = categoryTypes.find((ct) => ct.id === categoryTypeId);
   const isTransfer =
-    selectedCategoryType?.code?.toUpperCase() === TRANSFER_CATEGORY_TYPE_CODE;
+    selectedCategoryType?.code?.toUpperCase() === CategoryTypeCode.TRANSFER;
 
   const availableCategories = categoryTypeId
     ? categories.filter((category) => {
