@@ -14,8 +14,8 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,  
       retry: 1,          
-      // If data is older than 5 minutes, it will be reloaded from server
-      staleTime: 1000 * 60 * 5, 
+
+      staleTime: 0, 
     },
   },
 })

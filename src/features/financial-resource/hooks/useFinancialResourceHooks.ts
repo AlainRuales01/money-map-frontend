@@ -5,6 +5,7 @@ import { financialResourceService } from '@featuresFinancialResource/services/fi
 import type { GetFinancialResourceBasicInfoRequestDTO } from '@/types/services/financial-resource/request/GetFinancialResourceBasicInfoRequestDTO';
 import type { AddFinancialResourceRequestDTO, GetFinancialResourceUpdateInfoRequestDTO, UpdateFinancialResourceRequestDTO } from '@/types/services/financial-resource';
 import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
+import { QUERY_CACHE_TIMES } from '@/constants/queryCacheTimes';
 
 const FINANCIAL_RESOURCES_KEY = MONEY_MAP_KEY_CONSTANTS.FINANCIAL_RESOURCES;
 
@@ -62,6 +63,7 @@ export const useUpdateFinancialResourceMutation = () => {
 export const useFinancialResourcesDropDownOptionsQuery = () => {
     return useQuery({
         queryKey: [FINANCIAL_RESOURCES_KEY, 'dropDownOptions'],
-        queryFn: () => financialResourceService.getFinancialResourceDropDownOptions()
+        queryFn: () => financialResourceService.getFinancialResourceDropDownOptions(),
+        ...QUERY_CACHE_TIMES.SHORT_REFERENCE,
     });
 }

@@ -5,6 +5,7 @@ import { getApiResponseMessageError } from '@/utils/moneyMapApiUtil';
 import type { AddCategoryRequestDTO, GetCategoryBasicInfoRequestDTO, GetCategoryUpdateInfoRequestDTO } from '@/types/services/category';
 import type { UpdateCategoryRequestDTO } from '@/types/services/category/request/UpdateCategoryRequestDTO';
 import { MONEY_MAP_KEY_CONSTANTS } from '@/constants/moneyMapKeys';
+import { QUERY_CACHE_TIMES } from '@/constants/queryCacheTimes';
 
 const CATEGORIES_KEY = MONEY_MAP_KEY_CONSTANTS.CATEGORIES;
 
@@ -61,6 +62,7 @@ export const useUpdateCategoryMutation = () => {
 export const useCategoriesDropDownOptionsQuery = () => {
     return useQuery({
         queryKey: [CATEGORIES_KEY, 'dropDownOptions'],
-        queryFn: () => categoryService.getCategoryDropDownOptions()
+        queryFn: () => categoryService.getCategoryDropDownOptions(),
+        ...QUERY_CACHE_TIMES.STATIC_REFERENCE,
     });
 }
