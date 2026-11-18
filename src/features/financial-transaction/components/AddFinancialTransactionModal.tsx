@@ -9,6 +9,7 @@ import { useCategoryTypesDropDownOptionsQuery } from "@/features/category-type/h
 import { CategoryTypeCode } from "@/constants/categoryTypeCode";
 
 const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
+  const [isPayDebt, setIsPayDebt] = useState<boolean>(false);
   const [form, setForm] = useState({
     description: "",
     date: "",
@@ -17,6 +18,9 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
     categoryId: "",
     financialResourceId: "",
     destinationFinancialResourceId: "",
+    createAssociatedDebt: false,
+    dueDate: "",
+    paidDebtId: "",
   });
   const { showAlert } = useAlert();
   const { mutate } = useAddFinancialTransactionMutation();
@@ -60,8 +64,9 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
     }
   }, [isErrorFinancialResources, errorFinancialResources, showAlert]);
 
-  const update = (field: string, value: string | number) =>
+  const update = (field: string, value: string | number | boolean) =>
     setForm((current) => ({ ...current, [field]: value }));
+
   const submit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
@@ -75,6 +80,11 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
         "Description, Date, amount, category, and source resource are required",
         "info",
       );
+      return;
+    }
+
+    if (isPayDebt && !form.paidDebtId) {
+      showAlert("Please select a debt to pay", "info");
       return;
     }
 
@@ -105,6 +115,7 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
       showAlert("Amount must be greater than 0", "info");
       return;
     }
+
     mutate(
       {
         ...form,
@@ -112,15 +123,22 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
           isTransfer && form.destinationFinancialResourceId
             ? form.destinationFinancialResourceId
             : undefined,
+        dueDate:
+          form.createAssociatedDebt && form.dueDate ? form.dueDate : undefined,
+        paidDebtId:
+          isPayDebt && form.paidDebtId ? form.paidDebtId : undefined,
       },
       { onSuccess: onClose },
     );
   };
+
   return (
     <form onSubmit={submit}>
       <div className="flex flex-col gap-2 p-4">
         <TransactionFormFields
           {...form}
+          isPayDebt={isPayDebt}
+          onPayDebtChange={setIsPayDebt}
           categoryTypes={categoryTypes}
           categories={categories}
           financialResources={financialResources}

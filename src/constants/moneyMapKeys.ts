@@ -4,4 +4,5 @@ export const MONEY_MAP_KEY_CONSTANTS = {
   CATEGORIES: 'categories',
   CATEGORY_TYPES: 'categoryTypes',
   FINANCIAL_RESOURCES: 'financialResources',
+  DEBTS: 'debts',
 } as const;

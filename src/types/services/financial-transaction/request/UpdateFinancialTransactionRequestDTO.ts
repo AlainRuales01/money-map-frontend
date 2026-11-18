@@ -1,10 +1,13 @@
 export interface UpdateFinancialTransactionRequestDTO {
     id : string,
-    description : string
+    description : string,
     date : string,
     amount : number,
     categoryId : string,
     financialResourceId : string,
     destinationFinancialResourceId? : string,
-    isDeleted : boolean
+    isDeleted : boolean,
+    createAssociatedDebt?: boolean,
+    dueDate?: string,
+    paidDebtId?: string,
 }

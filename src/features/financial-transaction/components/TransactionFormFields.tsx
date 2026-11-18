@@ -3,6 +3,9 @@ import type { DropdownOptionDTO } from "@/types/services/common/DropdownOptionDT
 import type { CategoryDropdownOptionDTO } from "@/types/services/category";
 import type { CategoryTypeDropdownOptionDTO } from "@/types/services/category-type";
 import { CategoryTypeCode } from "@/constants/categoryTypeCode";
+import { useNotPaidDebtDropDownOptionsQuery } from "@/features/debt/hooks/useDebtHooks";
+import { useAlert } from "@/components/context/AlertContext";
+import { getApiResponseMessageError } from "@/utils/moneyMapApiUtil";
 
 interface TransactionFormFieldsProps {
   description: string;
@@ -12,13 +15,74 @@ interface TransactionFormFieldsProps {
   categoryId: string;
   financialResourceId: string;
   destinationFinancialResourceId: string;
+  createAssociatedDebt?: boolean;
+  dueDate?: string;
+  paidDebtId?: string;
+  isPayDebt?: boolean;
+  onPayDebtChange?: (isPayDebt: boolean) => void;
   categoryTypes?: CategoryTypeDropdownOptionDTO[];
   categories: (CategoryDropdownOptionDTO | DropdownOptionDTO)[];
   financialResources: DropdownOptionDTO[];
-  onChange: (field: string, value: string | number) => void;
+  onChange: (field: string, value: string | number | boolean) => void;
 }
 
 const TransactionFormFields = (props: TransactionFormFieldsProps) => {
+  const isPayDebt = props.isPayDebt ?? Boolean(props.paidDebtId);
+  const categoryTypeId = props.categoryTypeId ?? "";
+
+  const selectedCategoryType = props.categoryTypes?.find(
+    (ct) => ct.id === props.categoryTypeId,
+  );
+
+  const isTransferType =
+    selectedCategoryType?.code?.toUpperCase() === CategoryTypeCode.TRANSFER;
+
+  const showDestinationResource =
+    props.categoryTypes && props.categoryTypes.length > 0
+      ? isTransferType
+      : true;
+
+  const debtCheckboxEnable = Boolean(!isTransferType && props.categoryTypeId);
+
+  const {
+    data: debts = [],
+    isError: isErrorDebts,
+    error: errorDebts,
+  } = useNotPaidDebtDropDownOptionsQuery(
+    { categoryTypeId },
+    { enabled: Boolean(debtCheckboxEnable && isPayDebt) },
+  );
+
+  const { showAlert } = useAlert();
+
+  useEffect(() => {
+    if (isErrorDebts) {
+      const errorMessage = getApiResponseMessageError(errorDebts);
+      showAlert(errorMessage, "error");
+    }
+  }, [isErrorDebts, errorDebts, showAlert]);
+
+  const { categoryId, onChange, onPayDebtChange, createAssociatedDebt } = props;
+
+  useEffect(() => {
+    if (!debtCheckboxEnable) {
+      if (createAssociatedDebt) {
+        onChange("createAssociatedDebt", false);
+        onChange("dueDate", "");
+      }
+      if (isPayDebt) {
+        onPayDebtChange?.(false);
+        onChange("paidDebtId", "");
+      }
+    }
+  }, [
+    debtCheckboxEnable,
+    createAssociatedDebt,
+    isPayDebt,
+    onChange,
+    onPayDebtChange,
+  ]);
+
   const select = (
     id: string,
     value: string,
@@ -45,20 +109,7 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
       </select>
     </div>
   );
-
-  const selectedCategoryType = props.categoryTypes?.find(
-    (ct) => ct.id === props.categoryTypeId,
-  );
-
-  const isTransferType =
-    selectedCategoryType?.code?.toUpperCase() === CategoryTypeCode.TRANSFER;
-
-    
-  const showDestinationResource =
-    props.categoryTypes && props.categoryTypes.length > 0
-      ? isTransferType
-      : true;
-
+  
   const availableCategories = useMemo(() => {
     if (!props.categoryTypeId) {
       return props.categoryTypes && props.categoryTypes.length > 0
@@ -74,8 +125,6 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
     });
   }, [props.categories, props.categoryTypeId, props.categoryTypes]);
 
-  const { categoryId, onChange } = props;
-
   useEffect(() => {
     if (availableCategories.length === 1) {
       const singleCategoryId = availableCategories[0].id;
@@ -84,6 +133,32 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
       }
     }
   }, [availableCategories, categoryId, onChange]);
+
+  const handleCreateDebtChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+    props.onChange("createAssociatedDebt", checked);
+    if (checked) {
+      if (isPayDebt) {
+        props.onPayDebtChange?.(false);
+        props.onChange("paidDebtId", "");
+      }
+    } else {
+      props.onChange("dueDate", "");
+    }
+  };
+
+  const handlePayDebtChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.target.checked;
+    props.onPayDebtChange?.(checked);
+    if (checked) {
+      if (props.createAssociatedDebt) {
+        props.onChange("createAssociatedDebt", false);
+        props.onChange("dueDate", "");
+      }
+    } else {
+      props.onChange("paidDebtId", "");
+    }
+  };
 
   return (
     <>
@@ -156,6 +231,23 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
               }
 
               props.onChange("destinationFinancialResourceId", "");
+
+              const newSelectedCategoryType = props.categoryTypes?.find(
+                (ct) => ct.id === newCategoryTypeId,
+              );
+              const isNewTransfer =
+                newSelectedCategoryType?.code?.toUpperCase() ===
+                CategoryTypeCode.TRANSFER;
+
+              if (isNewTransfer || !newCategoryTypeId) {
+                props.onChange("createAssociatedDebt", false);
+                props.onChange("dueDate", "");
+                props.onPayDebtChange?.(false);
+                props.onChange("paidDebtId", "");
+              } else {
+                props.onChange("paidDebtId", "");
+                props.onChange("dueDate", "");
+              }
             }}
             className="border border-gray-300 p-1 rounded mb-2 text-black"
           >
@@ -188,6 +280,69 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
           "Destination Financial resource",
           props.financialResources,
         )}
+      {debtCheckboxEnable && (
+        <div className="flex items-center gap-6 my-2">
+          <div className="flex items-center gap-2">
+            <input
+              id="createAssociatedDebt"
+              type="checkbox"
+              checked={Boolean(props.createAssociatedDebt)}
+              onChange={handleCreateDebtChange}
+              className="cursor-pointer"
+            />
+            <label htmlFor="createAssociatedDebt" className="text-black cursor-pointer">
+              Create a debt from transaction
+            </label>
+          </div>
+          <div className="flex items-center gap-2">
+            
+            <input
+              id="isPayDebt"
+              type="checkbox"
+              checked={Boolean(isPayDebt)}
+              onChange={handlePayDebtChange}
+              className="cursor-pointer"
+            />
+            <label htmlFor="isPayDebt" className="text-black cursor-pointer">
+              Pay a debt
+            </label>
+          </div>       
+        </div>
+      )}
+      {debtCheckboxEnable && props.createAssociatedDebt && (
+        <div>
+          <label htmlFor="dueDate" className="text-black pr-2">
+            Due Date (Optional)
+          </label>
+          <input
+            id="dueDate"
+            type="date"
+            value={props.dueDate || ""}
+            onChange={(event) => props.onChange("dueDate", event.target.value)}
+            className="border border-gray-300 p-1 rounded mb-2 text-black"
+          />
+        </div>
+      )}
+      {debtCheckboxEnable && isPayDebt && (
+        <div>
+          <label htmlFor="paidDebtId" className="text-black pr-2">
+            Debt to Pay
+          </label>
+          <select
+            id="paidDebtId"
+            value={props.paidDebtId || ""}
+            onChange={(event) => props.onChange("paidDebtId", event.target.value)}
+            className="border border-gray-300 p-1 rounded mb-2 text-black"
+          >
+            <option value="">Select Debt to Pay</option>
+            {debts.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.name} (Pending: {option.pendingAmount})
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
     </>
   );
 };

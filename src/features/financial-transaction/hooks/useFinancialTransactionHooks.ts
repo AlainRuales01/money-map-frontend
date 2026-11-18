@@ -33,6 +33,7 @@ export const useAddFinancialTransactionMutation = () => {
       financialTransactionService.addFinancialTransaction(transaction),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [TRANSACTIONS_KEY, 'basicInfo'] });
+      queryClient.invalidateQueries({ queryKey: [MONEY_MAP_KEY_CONSTANTS.DEBTS] });
       showAlert('Financial transaction added successfully', 'success');
     },
     onError: (error: unknown) => showAlert(getApiResponseMessageError(error), 'error'),
@@ -50,6 +51,7 @@ export const useUpdateFinancialTransactionMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [TRANSACTIONS_KEY] });
       queryClient.invalidateQueries({ queryKey: [MONEY_MAP_KEY_CONSTANTS.FINANCIAL_RESOURCES] });
+      queryClient.invalidateQueries({ queryKey: [MONEY_MAP_KEY_CONSTANTS.DEBTS] });
       showAlert('Financial transaction updated successfully', 'success');
     },
     onError: (error: unknown) => showAlert(getApiResponseMessageError(error), 'error'),

@@ -16,6 +16,9 @@ const EditFinancialTransactionForm = ({
   transaction: FinancialTransactionUpdateInfoResponseDTO;
   onClose: () => void;
 }) => {
+  const [isPayDebt, setIsPayDebt] = useState<boolean>(
+    Boolean(transaction.paidDebtId),
+  );
   const [form, setForm] = useState({
     description: transaction.description,
     date: transaction.date,
@@ -25,6 +28,9 @@ const EditFinancialTransactionForm = ({
     financialResourceId: transaction.financialResourceId,
     destinationFinancialResourceId:
       transaction.destinationFinancialResourceId || "",
+    createAssociatedDebt: transaction.createAssociatedDebt ?? false,
+    dueDate: transaction.dueDate || "",
+    paidDebtId: transaction.paidDebtId || "",
   });
   const { showAlert } = useAlert();
   const { mutate } = useUpdateFinancialTransactionMutation();
@@ -68,8 +74,9 @@ const EditFinancialTransactionForm = ({
     }
   }, [isErrorFinancialResources, errorFinancialResources, showAlert]);
 
-  const update = (field: string, value: string | number) =>
+  const update = (field: string, value: string | number | boolean) =>
     setForm((current) => ({ ...current, [field]: value }));
+
   const submit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
@@ -83,6 +90,11 @@ const EditFinancialTransactionForm = ({
         "Description, Date, amount, category, and source resource are required",
         "info",
       );
+      return;
+    }
+
+    if (isPayDebt && !form.paidDebtId) {
+      showAlert("Please select a debt to pay", "info");
       return;
     }
 
@@ -123,16 +135,23 @@ const EditFinancialTransactionForm = ({
           isTransfer && form.destinationFinancialResourceId
             ? form.destinationFinancialResourceId
             : undefined,
+        dueDate:
+          form.createAssociatedDebt && form.dueDate ? form.dueDate : undefined,
+        paidDebtId:
+          isPayDebt && form.paidDebtId ? form.paidDebtId : undefined,
         isDeleted: false,
       },
       { onSuccess: onClose },
     );
   };
+
   return (
     <form onSubmit={submit}>
       <div className="flex flex-col gap-2 p-4">
         <TransactionFormFields
           {...form}
+          isPayDebt={isPayDebt}
+          onPayDebtChange={setIsPayDebt}
           categoryTypes={categoryTypes}
           categories={categories}
           financialResources={financialResources}

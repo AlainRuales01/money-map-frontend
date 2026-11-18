@@ -6,5 +6,8 @@ export interface FinancialTransactionUpdateInfoResponseDTO {
     categoryTypeId : string,
     categoryId : string,
     financialResourceId : string,
-    destinationFinancialResourceId : string
+    destinationFinancialResourceId : string,
+    createAssociatedDebt?: boolean,
+    dueDate?: string,
+    paidDebtId?: string
 }
