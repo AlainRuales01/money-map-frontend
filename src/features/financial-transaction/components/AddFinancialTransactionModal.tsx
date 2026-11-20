@@ -116,6 +116,11 @@ const AddFinancialTransactionModal = ({ onClose }: { onClose: () => void }) => {
       return;
     }
 
+    if (form.dueDate && new Date(form.dueDate) < new Date(form.date)) {
+      showAlert("Due date cannot be before the transaction date", "info");
+      return;
+    }
+
     mutate(
       {
         ...form,

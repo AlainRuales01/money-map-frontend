@@ -332,7 +332,7 @@ const TransactionFormFields = (props: TransactionFormFieldsProps) => {
             id="paidDebtId"
             value={props.paidDebtId || ""}
             onChange={(event) => props.onChange("paidDebtId", event.target.value)}
-            className="border border-gray-300 p-1 rounded mb-2 text-black"
+            className="border border-gray-300 p-1 rounded mb-2 text-black w-full"
           >
             <option value="">Select Debt to Pay</option>
             {debts.map((option) => (
